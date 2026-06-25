@@ -1,0 +1,666 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000010000000100000001 /* TomateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000001 /* TomateApp.swift */; };
+		A10000010000000100000003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000003 /* Assets.xcassets */; };
+		A10000010000000100000004 /* SessionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000004 /* SessionRecord.swift */; };
+		A10000010000000100000005 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000005 /* SessionStore.swift */; };
+		A10000010000000100000006 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000006 /* PomodoroTimer.swift */; };
+		A10000010000000100000027 /* StatsCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000027 /* StatsCalendar.swift */; };
+		A10000010000000100000028 /* TimelineInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000028 /* TimelineInterval.swift */; };
+		A10000010000000100000007 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000007 /* AppColors.swift */; };
+		A10000010000000100000008 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000008 /* RootView.swift */; };
+		A10000010000000100000009 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000009 /* TimerView.swift */; };
+		A10000010000000100000010 /* DayStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000010 /* DayStatsView.swift */; };
+		A10000010000000100000011 /* WeekStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000011 /* WeekStatsView.swift */; };
+		A10000010000000100000012 /* TopToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000012 /* TopToolbar.swift */; };
+		A10000010000000100000017 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000017 /* SegmentedControl.swift */; };
+		A10000010000000100000015 /* DayTimelineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000015 /* DayTimelineBar.swift */; };
+		A10000010000000100000016 /* WeekDayColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000016 /* WeekDayColumn.swift */; };
+		A10000010000000100000018 /* WindowConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000018 /* WindowConfigurator.swift */; };
+		A10000010000000100000040 /* SystemSleepMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000040 /* SystemSleepMonitor.swift */; };
+		A10000010000000100000041 /* AppTerminationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000041 /* AppTerminationMonitor.swift */; };
+		A10000010000000100000043 /* LiveDisplayDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000043 /* LiveDisplayDriver.swift */; };
+		A10000010000000100000020 /* StatsDateNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000020 /* StatsDateNavigator.swift */; };
+		A10000010000000100000021 /* DayStatColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000021 /* DayStatColumn.swift */; };
+		A10000010000000100000022 /* DateNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000022 /* DateNavigationBar.swift */; };
+		A10000010000000100000024 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000024 /* PersistenceController.swift */; };
+		A10000010000000100000025 /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000025 /* SessionEntity.swift */; };
+		A10000010000000100000026 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000026 /* AppPreferences.swift */; };
+		A10000010000000100000029 /* StatsDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000029 /* StatsDateFormatter.swift */; };
+		A10000010000000100000030 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000030 /* AppStrings.swift */; };
+		A10000010000000100000031 /* TimerRefreshMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000031 /* TimerRefreshMetrics.swift */; };
+		A10000010000000100000032 /* SessionRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000032 /* SessionRecording.swift */; };
+		A10000010000000100000033 /* SessionPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000033 /* SessionPersistence.swift */; };
+		A10000010000000100000034 /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000034 /* TimerConfiguration.swift */; };
+		A10000010000000100000035 /* TimelineDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000035 /* TimelineDisplay.swift */; };
+		A10000010000000100000036 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000036 /* AppNavigation.swift */; };
+		A10000010000000100000037 /* StatsNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000037 /* StatsNavigationModel.swift */; };
+		A10000010000000100000042 /* SessionDataWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000042 /* SessionDataWindow.swift */; };
+		A10000010000000100000038 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000038 /* SettingsView.swift */; };
+		A10000010000000100000039 /* TimelineIntervalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000039 /* TimelineIntervalEntity.swift */; };
+		B10000010000000100000004 /* TimelineScenarioExpectations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000004 /* TimelineScenarioExpectations.swift */; };
+		B10000010000000100000005 /* TimelineScenarioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000005 /* TimelineScenarioTests.swift */; };
+		B10000010000000100000002 /* AppNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000002 /* AppNavigationTests.swift */; };
+		B10000010000000100000006 /* SessionStoreWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000006 /* SessionStoreWindowTests.swift */; };
+		B10000010000000100000003 /* TimerTestHarness.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000003 /* TimerTestHarness.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A10000020000000100000001 /* TomateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateApp.swift; sourceTree = "<group>"; };
+		A10000020000000100000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A10000020000000100000004 /* SessionRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecord.swift; sourceTree = "<group>"; };
+		A10000020000000100000005 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		A10000020000000100000006 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
+		A10000020000000100000027 /* StatsCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCalendar.swift; sourceTree = "<group>"; };
+		A10000020000000100000028 /* TimelineInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineInterval.swift; sourceTree = "<group>"; };
+		A10000020000000100000007 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		A10000020000000100000008 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A10000020000000100000009 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		A10000020000000100000010 /* DayStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStatsView.swift; sourceTree = "<group>"; };
+		A10000020000000100000011 /* WeekStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekStatsView.swift; sourceTree = "<group>"; };
+		A10000020000000100000012 /* TopToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopToolbar.swift; sourceTree = "<group>"; };
+		A10000020000000100000017 /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		A10000020000000100000015 /* DayTimelineBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTimelineBar.swift; sourceTree = "<group>"; };
+		A10000020000000100000016 /* WeekDayColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayColumn.swift; sourceTree = "<group>"; };
+		A10000020000000100000018 /* WindowConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowConfigurator.swift; sourceTree = "<group>"; };
+		A10000020000000100000040 /* SystemSleepMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSleepMonitor.swift; sourceTree = "<group>"; };
+		A10000020000000100000041 /* AppTerminationMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTerminationMonitor.swift; sourceTree = "<group>"; };
+		A10000020000000100000043 /* LiveDisplayDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveDisplayDriver.swift; sourceTree = "<group>"; };
+		A10000020000000100000020 /* StatsDateNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDateNavigator.swift; sourceTree = "<group>"; };
+		A10000020000000100000021 /* DayStatColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStatColumn.swift; sourceTree = "<group>"; };
+		A10000020000000100000022 /* DateNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateNavigationBar.swift; sourceTree = "<group>"; };
+		A10000020000000100000024 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		A10000020000000100000025 /* SessionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
+		A10000020000000100000026 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		A10000020000000100000029 /* StatsDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDateFormatter.swift; sourceTree = "<group>"; };
+		A10000020000000100000030 /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
+		A10000020000000100000031 /* TimerRefreshMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerRefreshMetrics.swift; sourceTree = "<group>"; };
+		A10000020000000100000032 /* SessionRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecording.swift; sourceTree = "<group>"; };
+		A10000020000000100000033 /* SessionPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersistence.swift; sourceTree = "<group>"; };
+		A10000020000000100000034 /* TimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfiguration.swift; sourceTree = "<group>"; };
+		A10000020000000100000035 /* TimelineDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDisplay.swift; sourceTree = "<group>"; };
+		A10000020000000100000036 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
+		A10000020000000100000037 /* StatsNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsNavigationModel.swift; sourceTree = "<group>"; };
+		A10000020000000100000042 /* SessionDataWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDataWindow.swift; sourceTree = "<group>"; };
+		A10000020000000100000038 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A10000030000000100000001 /* Tomate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tomate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000020000000100000039 /* TimelineIntervalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineIntervalEntity.swift; sourceTree = "<group>"; };
+		B10000020000000100000004 /* TimelineScenarioExpectations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScenarioExpectations.swift; sourceTree = "<group>"; };
+		B10000020000000100000005 /* TimelineScenarioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScenarioTests.swift; sourceTree = "<group>"; };
+		B10000020000000100000002 /* AppNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationTests.swift; sourceTree = "<group>"; };
+		B10000020000000100000006 /* SessionStoreWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreWindowTests.swift; sourceTree = "<group>"; };
+		B10000020000000100000003 /* TimerTestHarness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestHarness.swift; sourceTree = "<group>"; };
+		B10000030000000100000001 /* TomateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TomateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A10000040000000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10000040000000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A10000050000000100000001 = {
+			isa = PBXGroup;
+			children = (
+				A10000050000000100000002 /* Tomate */,
+				B10000050000000100000001 /* TomateTests */,
+				A10000050000000100000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A10000050000000100000002 /* Tomate */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000001 /* TomateApp.swift */,
+				A10000050000000100000004 /* Models */,
+				A10000050000000100000008 /* Persistence */,
+				A10000050000000100000009 /* Preferences */,
+				A10000050000000100000010 /* Platform */,
+				A10000050000000100000005 /* Theme */,
+				A10000050000000100000006 /* Views */,
+				A10000020000000100000003 /* Assets.xcassets */,
+			);
+			path = Tomate;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A10000030000000100000001 /* Tomate.app */,
+				B10000030000000100000001 /* TomateTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000036 /* AppNavigation.swift */,
+				A10000020000000100000004 /* SessionRecord.swift */,
+				A10000020000000100000005 /* SessionStore.swift */,
+				A10000020000000100000042 /* SessionDataWindow.swift */,
+				A10000020000000100000006 /* PomodoroTimer.swift */,
+				A10000020000000100000032 /* SessionRecording.swift */,
+				A10000020000000100000034 /* TimerConfiguration.swift */,
+				A10000020000000100000035 /* TimelineDisplay.swift */,
+				A10000020000000100000028 /* TimelineInterval.swift */,
+				A10000020000000100000037 /* StatsNavigationModel.swift */,
+				A10000020000000100000027 /* StatsCalendar.swift */,
+				A10000020000000100000029 /* StatsDateFormatter.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000010 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000018 /* WindowConfigurator.swift */,
+				A10000020000000100000040 /* SystemSleepMonitor.swift */,
+				A10000020000000100000041 /* AppTerminationMonitor.swift */,
+				A10000020000000100000043 /* LiveDisplayDriver.swift */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000005 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000007 /* AppColors.swift */,
+				A10000020000000100000030 /* AppStrings.swift */,
+				A10000020000000100000031 /* TimerRefreshMetrics.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000008 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000024 /* PersistenceController.swift */,
+				A10000020000000100000033 /* SessionPersistence.swift */,
+				A10000020000000100000039 /* TimelineIntervalEntity.swift */,
+				A10000020000000100000025 /* SessionEntity.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000009 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000026 /* AppPreferences.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000008 /* RootView.swift */,
+				A10000020000000100000009 /* TimerView.swift */,
+				A10000020000000100000038 /* SettingsView.swift */,
+				A10000020000000100000010 /* DayStatsView.swift */,
+				A10000020000000100000011 /* WeekStatsView.swift */,
+				A10000050000000100000007 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A10000050000000100000007 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000012 /* TopToolbar.swift */,
+				A10000020000000100000017 /* SegmentedControl.swift */,
+				A10000020000000100000020 /* StatsDateNavigator.swift */,
+				A10000020000000100000022 /* DateNavigationBar.swift */,
+				A10000020000000100000021 /* DayStatColumn.swift */,
+				A10000020000000100000015 /* DayTimelineBar.swift */,
+				A10000020000000100000016 /* WeekDayColumn.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B10000050000000100000001 /* TomateTests */ = {
+			isa = PBXGroup;
+			children = (
+				B10000020000000100000003 /* TimerTestHarness.swift */,
+				B10000020000000100000004 /* TimelineScenarioExpectations.swift */,
+				B10000020000000100000005 /* TimelineScenarioTests.swift */,
+				B10000020000000100000001 /* PomodoroTimerInteractionTests.swift */,
+				B10000020000000100000002 /* AppNavigationTests.swift */,
+				B10000020000000100000006 /* SessionStoreWindowTests.swift */,
+			);
+			path = TomateTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A10000060000000100000001 /* Tomate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A10000070000000100000002 /* Build configuration list for PBXNativeTarget "Tomate" */;
+			buildPhases = (
+				A10000080000000100000001 /* Sources */,
+				A10000040000000100000001 /* Frameworks */,
+				A10000090000000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tomate;
+			productName = Tomate;
+			productReference = A10000030000000100000001 /* Tomate.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B10000060000000100000001 /* TomateTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B10000070000000100000001 /* Build configuration list for PBXNativeTarget "TomateTests" */;
+			buildPhases = (
+				B10000080000000100000001 /* Sources */,
+				B10000040000000100000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B100000A0000000100000001 /* PBXTargetDependency */,
+			);
+			name = TomateTests;
+			productName = TomateTests;
+			productReference = B10000030000000100000001 /* TomateTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		B10000090000000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A100000A0000000100000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A10000060000000100000001;
+			remoteInfo = Tomate;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		B100000A0000000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A10000060000000100000001 /* Tomate */;
+			targetProxy = B10000090000000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXProject section */
+		A100000A0000000100000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A10000060000000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					B10000060000000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = A10000060000000100000001;
+					};
+				};
+			};
+			buildConfigurationList = A10000070000000100000001 /* Build configuration list for PBXProject "Tomate" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = fr;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				fr,
+			);
+			mainGroup = A10000050000000100000001;
+			productRefGroup = A10000050000000100000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A10000060000000100000001 /* Tomate */,
+				B10000060000000100000001 /* TomateTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A10000090000000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000100000003 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A10000080000000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000100000001 /* TomateApp.swift in Sources */,
+				A10000010000000100000004 /* SessionRecord.swift in Sources */,
+				A10000010000000100000005 /* SessionStore.swift in Sources */,
+				A10000010000000100000006 /* PomodoroTimer.swift in Sources */,
+				A10000010000000100000027 /* StatsCalendar.swift in Sources */,
+				A10000010000000100000028 /* TimelineInterval.swift in Sources */,
+				A10000010000000100000007 /* AppColors.swift in Sources */,
+				A10000010000000100000008 /* RootView.swift in Sources */,
+				A10000010000000100000009 /* TimerView.swift in Sources */,
+				A10000010000000100000010 /* DayStatsView.swift in Sources */,
+				A10000010000000100000011 /* WeekStatsView.swift in Sources */,
+				A10000010000000100000012 /* TopToolbar.swift in Sources */,
+				A10000010000000100000017 /* SegmentedControl.swift in Sources */,
+				A10000010000000100000015 /* DayTimelineBar.swift in Sources */,
+				A10000010000000100000016 /* WeekDayColumn.swift in Sources */,
+				A10000010000000100000018 /* WindowConfigurator.swift in Sources */,
+				A10000010000000100000040 /* SystemSleepMonitor.swift in Sources */,
+				A10000010000000100000041 /* AppTerminationMonitor.swift in Sources */,
+				A10000010000000100000043 /* LiveDisplayDriver.swift in Sources */,
+				A10000010000000100000020 /* StatsDateNavigator.swift in Sources */,
+				A10000010000000100000021 /* DayStatColumn.swift in Sources */,
+				A10000010000000100000022 /* DateNavigationBar.swift in Sources */,
+				A10000010000000100000024 /* PersistenceController.swift in Sources */,
+				A10000010000000100000025 /* SessionEntity.swift in Sources */,
+				A10000010000000100000026 /* AppPreferences.swift in Sources */,
+				A10000010000000100000029 /* StatsDateFormatter.swift in Sources */,
+				A10000010000000100000030 /* AppStrings.swift in Sources */,
+				A10000010000000100000031 /* TimerRefreshMetrics.swift in Sources */,
+				A10000010000000100000032 /* SessionRecording.swift in Sources */,
+				A10000010000000100000033 /* SessionPersistence.swift in Sources */,
+				A10000010000000100000034 /* TimerConfiguration.swift in Sources */,
+				A10000010000000100000035 /* TimelineDisplay.swift in Sources */,
+				A10000010000000100000039 /* TimelineIntervalEntity.swift in Sources */,
+				A10000010000000100000036 /* AppNavigation.swift in Sources */,
+				A10000010000000100000037 /* StatsNavigationModel.swift in Sources */,
+				A10000010000000100000042 /* SessionDataWindow.swift in Sources */,
+				A10000010000000100000038 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B10000080000000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B10000010000000100000003 /* TimerTestHarness.swift in Sources */,
+				B10000010000000100000004 /* TimelineScenarioExpectations.swift in Sources */,
+				B10000010000000100000005 /* TimelineScenarioTests.swift in Sources */,
+				B10000010000000100000001 /* PomodoroTimerInteractionTests.swift in Sources */,
+				B10000010000000100000002 /* AppNavigationTests.swift in Sources */,
+				B10000010000000100000006 /* SessionStoreWindowTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A100000B0000000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A100000B0000000100000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		A100000B0000000100000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Tomate;
+				INFOPLIST_KEY_CFBundleName = Tomate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A100000B0000000100000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Tomate;
+				INFOPLIST_KEY_CFBundleName = Tomate;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B100000B0000000100000005 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.TomateTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomate.app/Contents/MacOS/Tomate";
+			};
+			name = Debug;
+		};
+		B100000B0000000100000006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.TomateTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomate.app/Contents/MacOS/Tomate";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A10000070000000100000001 /* Build configuration list for PBXProject "Tomate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A100000B0000000100000001 /* Debug */,
+				A100000B0000000100000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A10000070000000100000002 /* Build configuration list for PBXNativeTarget "Tomate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A100000B0000000100000003 /* Debug */,
+				A100000B0000000100000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B10000070000000100000001 /* Build configuration list for PBXNativeTarget "TomateTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B100000B0000000100000005 /* Debug */,
+				B100000B0000000100000006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A100000A0000000100000001 /* Project object */;
+}
