@@ -21,6 +21,10 @@ fi
 echo "→ Génération de l'icône…"
 python3 "$ROOT/scripts/generate_app_icon.py"
 
+INTERMEDIATES="$DERIVED_DATA/Build/Intermediates.noindex/Tomate.build/$CONFIG/Tomate.build"
+rm -rf "${INTERMEDIATES}"/assetcatalog*
+rm -f "$DERIVED_DATA/Build/Products/$CONFIG/$TARGET.app/Contents/Resources/AppIcon.icns"
+
 echo "→ Compilation ($CONFIG)…"
 xcodebuild \
   -project "$PROJECT" \

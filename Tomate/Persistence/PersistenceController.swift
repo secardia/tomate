@@ -44,7 +44,8 @@ final class PersistenceController {
 
     static var applicationSupportDirectory: URL {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return base.appendingPathComponent("Tomate", isDirectory: true)
+        let subdirectory = Bundle.main.bundleIdentifier ?? "Tomate"
+        return base.appendingPathComponent(subdirectory, isDirectory: true)
     }
 
     func fetchSessions(from start: Date, to end: Date) throws -> [SessionRecord] {

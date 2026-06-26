@@ -545,8 +545,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Tomate;
-				INFOPLIST_KEY_CFBundleName = Tomate;
+				INFOPLIST_KEY_CFBundleDisplayName = "Tomate Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -554,8 +553,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.app.dev;
+				PRODUCT_MODULE_NAME = Tomate;
+				PRODUCT_NAME = "Tomate Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -605,7 +605,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.TomateTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomate.app/Contents/MacOS/Tomate";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomate Dev.app/Contents/MacOS/Tomate Dev";
 			};
 			name = Debug;
 		};
