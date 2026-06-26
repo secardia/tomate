@@ -44,7 +44,9 @@ final class PersistenceController {
 
     static var applicationSupportDirectory: URL {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let subdirectory = Bundle.main.bundleIdentifier ?? "Tomate"
+        guard let subdirectory = Bundle.main.bundleIdentifier else {
+            fatalError("Missing bundle identifier for Core Data store")
+        }
         return base.appendingPathComponent(subdirectory, isDirectory: true)
     }
 
