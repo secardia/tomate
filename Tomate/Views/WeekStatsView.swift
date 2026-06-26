@@ -5,7 +5,7 @@ struct WeekStatsView: View {
     @Bindable var timer: PomodoroTimer
     @Binding var selectedDate: Date
 
-    private var calendar: Calendar { StatsCalendar.french }
+    private var calendar: Calendar { StatsCalendar.stats }
 
     private var startOfToday: Date {
         calendar.startOfDay(for: Date())

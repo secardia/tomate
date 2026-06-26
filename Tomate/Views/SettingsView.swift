@@ -3,6 +3,8 @@ import SwiftUI
 struct SettingsView: View {
     @Bindable var timer: PomodoroTimer
 
+    @AppStorage(AppPreferences.languageKey) private var languageRaw = AppLanguage.systemDefault.rawValue
+    @AppStorage(AppPreferences.firstWeekdayKey) private var firstWeekdayRaw = WeekStartDay.systemDefault.rawValue
     @State private var focusMinutes: Int
     @State private var restMinutes: Int
     @State private var autoStartBreaks: Bool
@@ -16,6 +18,20 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
+            Section {
+                Picker(AppStrings.Settings.language, selection: $languageRaw) {
+                    ForEach(AppLanguage.allCases) { language in
+                        Text(language.displayName).tag(language.rawValue)
+                    }
+                }
+
+                Picker(AppStrings.Settings.firstWeekday, selection: $firstWeekdayRaw) {
+                    ForEach(WeekStartDay.allCases) { day in
+                        Text(day.label).tag(day.rawValue)
+                    }
+                }
+            }
+
             Section {
                 Stepper(value: $focusMinutes, in: 1...120) {
                     Text("\(AppStrings.Settings.focusDuration): \(focusMinutes) min")
@@ -35,12 +51,11 @@ struct SettingsView: View {
                     .onChange(of: autoStartBreaks) { _, newValue in
                         applyConfiguration(autoStartBreaks: newValue)
                     }
-            } footer: {
-                Text(AppStrings.Settings.durationHint)
             }
         }
         .formStyle(.grouped)
-        .frame(minWidth: 360, minHeight: 220)
+        .frame(minWidth: 360, minHeight: 300)
+        .id("\(languageRaw)-\(firstWeekdayRaw)")
     }
 
     private func applyConfiguration(

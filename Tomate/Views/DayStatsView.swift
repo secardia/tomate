@@ -6,7 +6,7 @@ struct DayStatsView: View {
     @Bindable var timer: PomodoroTimer
     @Binding var selectedDate: Date
 
-    private var calendar: Calendar { StatsCalendar.french }
+    private var calendar: Calendar { StatsCalendar.stats }
 
     var body: some View {
         let now = timer.timelineDisplayDate(at: timer.displayNow)

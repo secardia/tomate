@@ -24,7 +24,7 @@ final class PersistenceController {
 
         container.loadPersistentStores { _, error in
             if let error {
-                fatalError("Échec du chargement Core Data : \(error)")
+                fatalError("Failed to load Core Data: \(error)")
             }
         }
 

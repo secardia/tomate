@@ -3,28 +3,28 @@ import Foundation
 
 /// Reproduces `TimerView` / `RootView` timer button handlers with injectable dates.
 ///
-/// · `tapReprendre` / `tapPause`(running) / `tapPasser` après changement de phase → lance le chrono.
-/// · `tapPause`(running) / `tapPasser` / `tapReinitialiser` → flush en base à l’instant du clic.
+/// · `tapStartOrResume` / `tapPause`(running) / `tapSkip` after phase change → starts the timer.
+/// · `tapPause`(running) / `tapSkip` / `tapReset` → flush to DB at click time.
 struct TimerTestHarness {
     let timer: PomodoroTimer
 
-    /// « Démarrer » / « Reprendre » — play/pause toggle while idle.
-    func tapReprendre(at date: Date) {
+    /// "Start" / "Resume" — play/pause toggle while idle.
+    func tapStartOrResume(at date: Date) {
         timer.togglePause(at: date)
     }
 
-    /// « Pause » — pause toggle while running.
+    /// "Pause" — pause toggle while running.
     func tapPause(at date: Date) {
         timer.togglePause(at: date)
     }
 
-    /// « Passer » — skip button.
-    func tapPasser(at date: Date) {
+    /// "Skip" — skip button.
+    func tapSkip(at date: Date) {
         timer.skip(at: date)
     }
 
-    /// « Réinitialiser » — reset button.
-    func tapReinitialiser(at date: Date) {
+    /// "Reset" — reset button.
+    func tapReset(at date: Date) {
         timer.reset(at: date)
     }
 
@@ -33,7 +33,7 @@ struct TimerTestHarness {
         timer.reset(at: date)
     }
 
-    /// Live-display poll while the chrono runs (`LiveDisplayDriver`).
+    /// Live-display poll while the timer runs (`LiveDisplayDriver`).
     func tickLiveDisplay(at date: Date, onPhaseChange: () -> Void = {}) {
         timer.poll(at: date, onPhaseChange: onPhaseChange)
     }
@@ -54,5 +54,14 @@ struct TimerTestHarness {
     /// Quit / Cmd+Q — same handler as the reset button.
     func appWillTerminate(at date: Date) {
         timer.reset(at: date)
+    }
+}
+
+enum TestPreferences {
+    /// Registers defaults, then pins locale/calendar for deterministic tests.
+    static func register() {
+        AppPreferences.register()
+        AppPreferences.language = .english
+        AppPreferences.firstWeekday = .monday
     }
 }

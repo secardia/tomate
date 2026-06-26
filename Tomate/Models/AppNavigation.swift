@@ -3,7 +3,14 @@ enum AppScreen {
     case stats
 }
 
-enum StatsPeriod: String, CaseIterable {
-    case day = "Jour"
-    case week = "Semaine"
+enum StatsPeriod: CaseIterable, Hashable {
+    case day
+    case week
+
+    var label: String {
+        switch self {
+        case .day: AppStrings.Stats.day
+        case .week: AppStrings.Stats.week
+        }
+    }
 }

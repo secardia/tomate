@@ -13,19 +13,19 @@ if ! xcodebuild -version &>/dev/null; then
   if [[ -d /Applications/Xcode.app ]]; then
     export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
   else
-    echo "error: Xcode est requis." >&2
+    echo "error: Xcode is required." >&2
     exit 1
   fi
 fi
 
-echo "→ Génération de l'icône…"
+echo "→ Generating app icon…"
 python3 "$ROOT/scripts/generate_app_icon.py"
 
 INTERMEDIATES="$DERIVED_DATA/Build/Intermediates.noindex/Tomate.build/$CONFIG/Tomate.build"
 rm -rf "${INTERMEDIATES}"/assetcatalog*
 rm -f "$DERIVED_DATA/Build/Products/$CONFIG/$TARGET.app/Contents/Resources/AppIcon.icns"
 
-echo "→ Compilation ($CONFIG)…"
+echo "→ Building ($CONFIG)…"
 xcodebuild \
   -project "$PROJECT" \
   -scheme "$TARGET" \
@@ -39,11 +39,11 @@ xcodebuild \
 
 APP="$DERIVED_DATA/Build/Products/$CONFIG/$TARGET.app"
 if [[ ! -d "$APP" ]]; then
-  echo "error: binaire introuvable : $APP" >&2
+  echo "error: binary not found: $APP" >&2
   exit 1
 fi
 
-echo "→ Installation dans ${DEST}…"
+echo "→ Installing to ${DEST}…"
 if [[ -d "$DEST" ]]; then
   rm -rf "$DEST"
 fi
@@ -52,5 +52,5 @@ xattr -cr "$DEST" 2>/dev/null || true
 touch "$DEST"
 
 echo ""
-echo "✓ Tomate est installée dans $DEST"
-echo "  Glisse l'icône dans le Dock pour l'épingler."
+echo "✓ Tomate installed to $DEST"
+echo "  Drag the icon to the Dock to pin it."

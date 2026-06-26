@@ -64,7 +64,7 @@ final class PomodoroTimer {
         pausedRemaining = TimeInterval(configuration.focusDurationSeconds)
     }
 
-    /// Date used to render the day timeline; frozen while the chrono is paused.
+    /// Date used to render the day timeline; frozen while the timer is paused.
     func timelineDisplayDate(at now: Date) -> Date {
         isPaused ? (pausedAt ?? now) : now
     }
@@ -170,7 +170,7 @@ final class PomodoroTimer {
     func liveActiveDuration(
         at now: Date,
         selectedDate: Date,
-        calendar: Calendar = StatsCalendar.french
+        calendar: Calendar = StatsCalendar.stats
     ) -> (focus: TimeInterval, rest: TimeInterval) {
         guard calendar.isDate(selectedDate, inSameDayAs: now),
               let start = activeSegmentStart else { return (0, 0) }
@@ -284,10 +284,10 @@ final class PomodoroTimer {
 
     // MARK: - Recording
     //
-    // Règle produit :
-    // · Démarrer / Reprendre / Passer (phase suivante) → lance le chrono (`activeSegmentStart`).
-    // · Pause / Passer (fin de phase) / Réinitialiser / fin chrono → flush en base à l’instant du clic
-    //   (intervalle startDate…endDate du segment focus ou calm en cours).
+    // Product rule:
+    // · Start / Resume / Skip (next phase) → starts the timer (`activeSegmentStart`).
+    // · Pause / Skip (end of phase) / Reset / timer completion → flush to DB at click time
+    //   (startDate…endDate interval of the current focus or break segment).
 
     private func recordEndOfPhase(at now: Date) {
         let segments = buildSegmentsForFinalization(at: now)

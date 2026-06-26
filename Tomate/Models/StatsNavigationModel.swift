@@ -9,7 +9,7 @@ final class StatsNavigationModel {
 
     private let calendar: Calendar
 
-    init(calendar: Calendar = StatsCalendar.french, selectedDate: Date = Date()) {
+    init(calendar: Calendar = StatsCalendar.stats, selectedDate: Date = Date()) {
         self.calendar = calendar
         self.selectedDate = selectedDate
     }

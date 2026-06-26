@@ -10,7 +10,7 @@ enum SegmentedControlMetrics {
     static let dateNavToday = CGSize(width: 92, height: 26)
 }
 
-/// Cellule segmentée : hitbox fixe = rectangle de sélection.
+/// Segmented cell: fixed hitbox equals the selection rectangle.
 struct SegmentedControlCell: View {
     let size: CGSize
     let isActive: Bool

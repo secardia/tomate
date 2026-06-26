@@ -5,7 +5,7 @@ enum TimelineDisplay {
         persisted: [TimelineInterval],
         live: [TimelineInterval],
         selectedDate: Date,
-        calendar: Calendar = StatsCalendar.french
+        calendar: Calendar = StatsCalendar.stats
     ) -> [TimelineInterval] {
         let merged = (persisted + live).sorted { $0.startDate < $1.startDate }
         return merged.filter { calendar.isDate($0.startDate, inSameDayAs: selectedDate) }

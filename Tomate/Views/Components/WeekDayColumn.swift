@@ -30,7 +30,8 @@ struct WeekDayColumn: View {
             Text(dayLabel)
                 .font(.system(size: 12, weight: isToday ? .bold : .regular))
                 .foregroundStyle(isPastOrToday ? AppColors.textPrimary : AppColors.textSecondary)
-                .frame(height: 14, alignment: .center)
+                .fixedSize(horizontal: true, vertical: false)
+                .frame(minHeight: 14, alignment: .center)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

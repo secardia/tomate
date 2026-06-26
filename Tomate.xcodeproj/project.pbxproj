@@ -33,6 +33,8 @@
 		A10000010000000100000024 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000024 /* PersistenceController.swift */; };
 		A10000010000000100000025 /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000025 /* SessionEntity.swift */; };
 		A10000010000000100000026 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000026 /* AppPreferences.swift */; };
+		A10000010000000100000044 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000044 /* AppLanguage.swift */; };
+		A10000010000000100000045 /* WeekStartDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000045 /* WeekStartDay.swift */; };
 		A10000010000000100000029 /* StatsDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000029 /* StatsDateFormatter.swift */; };
 		A10000010000000100000030 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000030 /* AppStrings.swift */; };
 		A10000010000000100000031 /* TimerRefreshMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000031 /* TimerRefreshMetrics.swift */; };
@@ -79,6 +81,8 @@
 		A10000020000000100000024 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		A10000020000000100000025 /* SessionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
 		A10000020000000100000026 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
+		A10000020000000100000044 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
+		A10000020000000100000045 /* WeekStartDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekStartDay.swift; sourceTree = "<group>"; };
 		A10000020000000100000029 /* StatsDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDateFormatter.swift; sourceTree = "<group>"; };
 		A10000020000000100000030 /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		A10000020000000100000031 /* TimerRefreshMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerRefreshMetrics.swift; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				A10000020000000100000026 /* AppPreferences.swift */,
+				A10000020000000100000044 /* AppLanguage.swift */,
+				A10000020000000100000045 /* WeekStartDay.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -385,6 +391,8 @@
 				A10000010000000100000024 /* PersistenceController.swift in Sources */,
 				A10000010000000100000025 /* SessionEntity.swift in Sources */,
 				A10000010000000100000026 /* AppPreferences.swift in Sources */,
+				A10000010000000100000044 /* AppLanguage.swift in Sources */,
+				A10000010000000100000045 /* WeekStartDay.swift in Sources */,
 				A10000010000000100000029 /* StatsDateFormatter.swift in Sources */,
 				A10000010000000100000030 /* AppStrings.swift in Sources */,
 				A10000010000000100000031 /* TimerRefreshMetrics.swift in Sources */,
@@ -545,7 +553,7 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Tomate Dev";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tomate Debug";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -553,9 +561,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.app.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.app.debug;
 				PRODUCT_MODULE_NAME = Tomate;
-				PRODUCT_NAME = "Tomate Dev";
+				PRODUCT_NAME = "Tomate Debug";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -605,7 +613,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomate.TomateTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomate Dev.app/Contents/MacOS/Tomate Dev";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tomate Debug.app/Contents/MacOS/Tomate Debug";
 			};
 			name = Debug;
 		};

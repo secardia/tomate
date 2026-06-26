@@ -56,10 +56,18 @@ enum DurationFormatter {
 }
 
 enum TimeFormatter {
-    static func frenchHourMinute(_ date: Date) -> String {
-        let calendar = StatsCalendar.french
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-        return "\(hour)h\(String(format: "%02d", minute))"
+    static func hourMinute(_ date: Date) -> String {
+        switch AppPreferences.language {
+        case .english:
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US")
+            formatter.dateFormat = "h:mm a"
+            return formatter.string(from: date)
+        case .french:
+            let calendar = StatsCalendar.stats
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            return "\(hour)h\(String(format: "%02d", minute))"
+        }
     }
 }

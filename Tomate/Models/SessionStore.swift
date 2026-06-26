@@ -16,7 +16,7 @@ final class SessionStore {
 
     init(
         persistence: any SessionPersistence = PersistenceController.shared,
-        calendar: Calendar = StatsCalendar.french
+        calendar: Calendar = StatsCalendar.stats
     ) {
         self.persistence = persistence
         self.calendar = calendar

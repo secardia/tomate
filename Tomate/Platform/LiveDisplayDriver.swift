@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Logical poll while the chrono runs; `PomodoroTimer.poll` only publishes UI when the displayed second changes.
+/// Logical poll while the timer runs; `PomodoroTimer.poll` only publishes UI when the displayed second changes.
 struct LiveDisplayDriver: View {
     @Bindable var timer: PomodoroTimer
     var onPhaseChange: () -> Void

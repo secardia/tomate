@@ -20,25 +20,25 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     private func daySummary() -> DaySummary {
         store.daySummary(
             for: t0,
-            calendar: StatsCalendar.french,
+            calendar: StatsCalendar.stats,
             minimumSessionCountSeconds: testConfiguration.minimumSessionCountSeconds
         )
     }
 
     override func setUp() {
         super.setUp()
-        AppPreferences.register()
+        TestPreferences.register()
 
         store = SessionStore(persistence: PersistenceController.inMemory())
         timer = PomodoroTimer(recording: store, configuration: testConfiguration)
         harness = TimerTestHarness(timer: timer)
     }
 
-    // MARK: - Enregistrement sans seuil (timeline + durée)
+    // MARK: - Recording without threshold (timeline + duration)
 
-    func testPasserRecordsTimelineAndDurationEvenWhenShort() throws {
-        harness.tapReprendre(at: t0)
-        harness.tapPasser(at: t0.addingTimeInterval(2))
+    func testSkipRecordsTimelineAndDurationEvenWhenShort() throws {
+        harness.tapStartOrResume(at: t0)
+        harness.tapSkip(at: t0.addingTimeInterval(2))
 
         let session = try XCTUnwrap(store.sessions.first)
         XCTAssertEqual(session.duration, 2, accuracy: 0.001)
@@ -48,9 +48,9 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertEqual(daySummary().focusCount, 0)
     }
 
-    func testPasserIncrementsSessionCountWhenAboveMinimum() throws {
-        harness.tapReprendre(at: t0)
-        harness.tapPasser(at: t0.addingTimeInterval(3))
+    func testSkipIncrementsSessionCountWhenAboveMinimum() throws {
+        harness.tapStartOrResume(at: t0)
+        harness.tapSkip(at: t0.addingTimeInterval(3))
 
         let session = try XCTUnwrap(store.sessions.first)
         XCTAssertEqual(session.duration, 3, accuracy: 0.001)
@@ -59,10 +59,10 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testPauseResumeCreatesTwoFocusSessions() throws {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(2))
-        harness.tapReprendre(at: t0.addingTimeInterval(5)) // 3 s pause chrono
-        harness.tapPasser(at: t0.addingTimeInterval(7))
+        harness.tapStartOrResume(at: t0.addingTimeInterval(5)) // 3 s timer pause
+        harness.tapSkip(at: t0.addingTimeInterval(7))
 
         XCTAssertEqual(store.timelineIntervals.count, 2)
         XCTAssertEqual(store.timelineIntervals[0].kind, .focus)
@@ -78,10 +78,10 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testShortPauseCreatesTwoFocusSessions() throws {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(2))
-        harness.tapReprendre(at: t0.addingTimeInterval(3)) // 1 s pause
-        harness.tapPasser(at: t0.addingTimeInterval(5))
+        harness.tapStartOrResume(at: t0.addingTimeInterval(3)) // 1 s pause
+        harness.tapSkip(at: t0.addingTimeInterval(5))
 
         XCTAssertEqual(store.timelineIntervals.count, 2)
         XCTAssertEqual(store.timelineIntervals[0].kind, .focus)
@@ -89,11 +89,11 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertEqual(store.timelineIntervals[1].duration, 2, accuracy: 0.001)
     }
 
-    func testPasserKeepsAllFocusSegmentsIncludingShortTrailing() throws {
-        harness.tapReprendre(at: t0)
+    func testSkipKeepsAllFocusSegmentsIncludingShortTrailing() throws {
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(5))
-        harness.tapReprendre(at: t0.addingTimeInterval(8))
-        harness.tapPasser(at: t0.addingTimeInterval(9))
+        harness.tapStartOrResume(at: t0.addingTimeInterval(8))
+        harness.tapSkip(at: t0.addingTimeInterval(9))
 
         XCTAssertEqual(store.timelineIntervals.count, 2)
         XCTAssertEqual(store.timelineIntervals[1].duration, 1, accuracy: 0.001)
@@ -105,14 +105,14 @@ final class PomodoroTimerInteractionTests: XCTestCase {
 
     // MARK: - Pause / reset / completion
 
-    func testReprendreStartsRunningCountdown() {
-        harness.tapReprendre(at: t0)
+    func testResumeStartsRunningCountdown() {
+        harness.tapStartOrResume(at: t0)
         XCTAssertTrue(timer.isRunning)
         XCTAssertTrue(store.sessions.isEmpty)
     }
 
     func testPauseFreezesActiveElapsed() {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         let pausedAt = t0.addingTimeInterval(2)
         harness.tapPause(at: pausedAt)
 
@@ -122,7 +122,7 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testTimelineIntervalsFrozenWhilePaused() {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         let pausedAt = t0.addingTimeInterval(2)
         harness.tapPause(at: pausedAt)
 
@@ -133,10 +133,10 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertEqual(store.timelineIntervals[0].endDate, pausedAt)
     }
 
-    func testReinitialiserRecordsProgressAndStaysOnSamePhase() throws {
-        harness.tapReprendre(at: t0)
+    func testResetRecordsProgressAndStaysOnSamePhase() throws {
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(3))
-        harness.tapReinitialiser(at: t0.addingTimeInterval(13))
+        harness.tapReset(at: t0.addingTimeInterval(13))
 
         XCTAssertEqual(timer.phase, .focus)
         XCTAssertEqual(store.timelineIntervals.count, 1)
@@ -147,10 +147,10 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testResetTrimsNothingFromTimeline() throws {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(5))
-        harness.tapReprendre(at: t0.addingTimeInterval(8))
-        harness.tapReinitialiser(at: t0.addingTimeInterval(9))
+        harness.tapStartOrResume(at: t0.addingTimeInterval(8))
+        harness.tapReset(at: t0.addingTimeInterval(9))
 
         XCTAssertEqual(store.timelineIntervals.count, 2)
         XCTAssertEqual(store.sessions.count, 2)
@@ -158,17 +158,17 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertEqual(store.sessions[1].duration, 1, accuracy: 0.001)
     }
 
-    func testPasserStartsRestEvenWhenAutoStartBreaksDisabled() {
-        harness.tapReprendre(at: t0)
-        harness.tapPasser(at: t0.addingTimeInterval(3))
+    func testSkipStartsRestEvenWhenAutoStartBreaksDisabled() {
+        harness.tapStartOrResume(at: t0)
+        harness.tapSkip(at: t0.addingTimeInterval(3))
         XCTAssertEqual(timer.phase, .rest)
         XCTAssertTrue(timer.isRunning)
     }
 
     func testPauseResumeTimelinePersistsOnNaturalCompletion() throws {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(2))
-        harness.tapReprendre(at: t0.addingTimeInterval(12))
+        harness.tapStartOrResume(at: t0.addingTimeInterval(12))
         harness.tickCompletion(at: t0.addingTimeInterval(15))
 
         XCTAssertEqual(store.timelineIntervals.count, 2)
@@ -180,15 +180,15 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testCompletionTicksRecordSessionWithoutTimerChrome() throws {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.tickCompletion(at: t0.addingTimeInterval(5))
 
         XCTAssertEqual(store.sessions.count, 1)
         XCTAssertEqual(try XCTUnwrap(store.sessions.first).duration, 5, accuracy: 0.001)
     }
 
-    func testPausedPhaseNeverRecordsUntilPasserOrCompletion() {
-        harness.tapReprendre(at: t0)
+    func testPausedPhaseNeverRecordsUntilSkipOrCompletion() {
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(2))
         harness.tickCompletion(at: t0.addingTimeInterval(20))
         XCTAssertEqual(store.sessions.count, 1)
@@ -196,7 +196,7 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testSystemSleepPausesRunningTimer() {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.systemWillSleep(at: t0.addingTimeInterval(2))
 
         XCTAssertFalse(timer.isRunning)
@@ -207,7 +207,7 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testSystemWakeResumesAfterSleepPause() {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.systemWillSleep(at: t0.addingTimeInterval(2))
         harness.systemDidWake(at: t0.addingTimeInterval(60))
 
@@ -217,7 +217,7 @@ final class PomodoroTimerInteractionTests: XCTestCase {
     }
 
     func testSystemWakeDoesNotResumeManualPause() {
-        harness.tapReprendre(at: t0)
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(2))
         harness.systemWillSleep(at: t0.addingTimeInterval(3))
         harness.systemDidWake(at: t0.addingTimeInterval(60))
@@ -234,8 +234,8 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertFalse(timer.isPaused)
     }
 
-    func testAppQuitResetsLikeReinitialiser() throws {
-        harness.tapReprendre(at: t0)
+    func testAppQuitResetsLikeReset() throws {
+        harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(3))
         harness.appWillTerminate(at: t0.addingTimeInterval(5))
 

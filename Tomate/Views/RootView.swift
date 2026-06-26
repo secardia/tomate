@@ -2,11 +2,13 @@ import SwiftUI
 
 struct RootView: View {
     @State private var navigation = StatsNavigationModel()
+    @AppStorage(AppPreferences.languageKey) private var languageRaw = AppLanguage.systemDefault.rawValue
+    @AppStorage(AppPreferences.firstWeekdayKey) private var firstWeekdayRaw = WeekStartDay.systemDefault.rawValue
 
     let store: SessionStore
     @Bindable var timer: PomodoroTimer
 
-    private var calendar: Calendar { StatsCalendar.french }
+    private var calendar: Calendar { StatsCalendar.stats }
 
     var body: some View {
         Group {
@@ -56,6 +58,7 @@ struct RootView: View {
                 syncSessionWindow()
             }
         }
+        .id("\(languageRaw)-\(firstWeekdayRaw)")
     }
 
     private func syncSessionWindow() {
@@ -139,7 +142,7 @@ struct RootView: View {
                         isActive: navigation.period == item,
                         action: { navigation.selectPeriod(item) }
                     ) {
-                        Text(item.rawValue)
+                        Text(item.label)
                             .font(.system(size: 13, weight: .medium))
                             .foregroundStyle(navigation.period == item ? AppColors.textPrimary : AppColors.textSecondary)
                     }

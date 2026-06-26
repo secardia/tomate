@@ -2,7 +2,7 @@ struct TimerConfiguration: Equatable {
     var focusDurationSeconds: Int
     var restDurationSeconds: Int
     var autoStartBreaks: Bool
-    /// Durée active minimale pour +1 dans les colonnes « sessions » Jour/Semaine (pas pour la timeline ni le cumul).
+    /// Minimum active duration to count +1 in Day/Week session columns (not for timeline or cumulative time).
     var minimumSessionCountSeconds: Int
 
     static let defaultMinimumSessionCountSeconds = 60

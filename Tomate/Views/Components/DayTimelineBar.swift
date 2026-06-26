@@ -21,7 +21,7 @@ private struct DayTimelineBarContent: View {
     let timer: PomodoroTimer
     let now: Date
 
-    private var calendar: Calendar { StatsCalendar.french }
+    private var calendar: Calendar { StatsCalendar.stats }
 
     private var liveTimeline: [TimelineInterval] {
         guard calendar.isDate(selectedDate, inSameDayAs: now) else { return [] }
@@ -116,6 +116,6 @@ private struct DayTimelineBarContent: View {
     }
 
     private func timeLabel(_ date: Date) -> String {
-        TimeFormatter.frenchHourMinute(date)
+        TimeFormatter.hourMinute(date)
     }
 }

@@ -1,7 +1,7 @@
 import XCTest
 @testable import Tomate
 
-/// Scénarios complets : actions → graphe · cumul durée · compteur phases.
+/// Full scenarios: actions → graph · cumulative duration · phase counts.
 final class TimelineScenarioTests: XCTestCase {
     private var store: SessionStore!
     private var timer: PomodoroTimer!
@@ -20,7 +20,7 @@ final class TimelineScenarioTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        AppPreferences.register()
+        TestPreferences.register()
         store = SessionStore(persistence: PersistenceController.inMemory())
         timer = PomodoroTimer(recording: store, configuration: testConfiguration)
         scenario = TimelineScenarioHarness(
@@ -32,11 +32,11 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Passer focus
+    // MARK: - Skip focus
 
     func testScenarioPassFocus2Seconds() {
-        scenario.harness.tapReprendre(at: t0)
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(2))
+        scenario.harness.tapStartOrResume(at: t0)
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(2))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -53,8 +53,8 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioPassFocus3SecondsCountsSession() {
-        scenario.harness.tapReprendre(at: t0)
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(3))
+        scenario.harness.tapStartOrResume(at: t0)
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(3))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -71,8 +71,8 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioPassFocus1Second() {
-        scenario.harness.tapReprendre(at: t0)
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(1))
+        scenario.harness.tapStartOrResume(at: t0)
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(1))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -88,13 +88,13 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Pause chrono → deux sessions focus
+    // MARK: - Timer pause → two focus sessions
 
     func testScenarioPauseResumeThenPass() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(2))
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(5))
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(7))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(5))
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(7))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -114,10 +114,10 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioShortPauseStillShowsGray() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(2))
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(3))
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(5))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(3))
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(5))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -137,10 +137,10 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioKeepsShortTrailingFocusSegment() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(5))
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(8))
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(9))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(8))
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(9))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -159,10 +159,10 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Live figé pendant pause
+    // MARK: - Live frozen while paused
 
     func testScenarioWhilePausedLiveGraphFrozen() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         let pausedAt = t0.addingTimeInterval(2)
         scenario.harness.tapPause(at: pausedAt)
         let observeAt = pausedAt.addingTimeInterval(30)
@@ -184,9 +184,9 @@ final class TimelineScenarioTests: XCTestCase {
     // MARK: - Fin naturelle
 
     func testScenarioNaturalCompletionAfterPause() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(2))
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(12))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(12))
         scenario.harness.tickCompletion(at: t0.addingTimeInterval(15))
 
         scenario.assertOutcome(
@@ -207,7 +207,7 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioNaturalCompletionSimple() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tickCompletion(at: t0.addingTimeInterval(5))
 
         scenario.assertOutcome(
@@ -224,12 +224,12 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Réinitialiser
+    // MARK: - Reset
 
     func testScenarioReinitWhilePaused() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(3))
-        scenario.harness.tapReinitialiser(at: t0.addingTimeInterval(13))
+        scenario.harness.tapReset(at: t0.addingTimeInterval(13))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -247,8 +247,8 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioReinitShortFocus() {
-        scenario.harness.tapReprendre(at: t0)
-        scenario.harness.tapReinitialiser(at: t0.addingTimeInterval(2))
+        scenario.harness.tapStartOrResume(at: t0)
+        scenario.harness.tapReset(at: t0.addingTimeInterval(2))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -265,10 +265,10 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioReinitAfterPauseResumeKeepsAllSegments() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(5))
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(8))
-        scenario.harness.tapReinitialiser(at: t0.addingTimeInterval(9))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(8))
+        scenario.harness.tapReset(at: t0.addingTimeInterval(9))
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -287,12 +287,12 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Focus puis calm
+    // MARK: - Focus then break
 
     func testScenarioFocusThenCalmShortRest() {
-        scenario.harness.tapReprendre(at: t0)
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(3))
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(5)) // 2 s calm
+        scenario.harness.tapStartOrResume(at: t0)
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(3))
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(5)) // 2 s break
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -312,9 +312,9 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioFocusThenCalmBothCount() {
-        scenario.harness.tapReprendre(at: t0)
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(3))
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(6)) // 3 s calm
+        scenario.harness.tapStartOrResume(at: t0)
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(3))
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(6)) // 3 s break
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -333,20 +333,20 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Règle save direct vs lance chrono
+    // MARK: - Direct save vs start timer rule
 
-    func testScenarioReprendreDoesNotSaveUntilPausePassOrReinit() {
-        scenario.harness.tapReprendre(at: t0)
+    func testScenarioResumeDoesNotSaveUntilPauseSkipOrReset() {
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(10))
 
         XCTAssertEqual(store.sessions.count, 1)
         XCTAssertEqual(store.timelineIntervals.count, 1)
         XCTAssertEqual(store.sessions[0].duration, 10, accuracy: 0.001)
 
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(13))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(13))
         let observeAt = t0.addingTimeInterval(20)
 
-        XCTAssertEqual(store.sessions.count, 1, "Reprendre ne save pas")
+        XCTAssertEqual(store.sessions.count, 1, "Resume does not save")
         XCTAssertEqual(store.timelineIntervals.count, 1)
 
         scenario.assertOutcome(
@@ -366,12 +366,12 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Live avant enregistrement
+    // MARK: - Live before recording
 
     func testScenarioLiveGraphBeforePass() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(10))
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(13))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(13))
         let observeAt = t0.addingTimeInterval(28)
 
         scenario.assertOutcome(
@@ -392,10 +392,10 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioLiveGraphAfterPassWithCalmRunning() {
-        scenario.harness.tapReprendre(at: t0)
+        scenario.harness.tapStartOrResume(at: t0)
         scenario.harness.tapPause(at: t0.addingTimeInterval(3))
-        scenario.harness.tapReprendre(at: t0.addingTimeInterval(6))
-        scenario.harness.tapPasser(at: t0.addingTimeInterval(9))
+        scenario.harness.tapStartOrResume(at: t0.addingTimeInterval(6))
+        scenario.harness.tapSkip(at: t0.addingTimeInterval(9))
         let observeAt = t0.addingTimeInterval(11)
 
         scenario.assertOutcome(
@@ -419,10 +419,10 @@ final class TimelineScenarioTests: XCTestCase {
         )
     }
 
-    // MARK: - Rien enregistré
+    // MARK: - Nothing recorded
 
     func testScenarioPassWithZeroActiveRecordsNothing() {
-        scenario.harness.tapPasser(at: t0)
+        scenario.harness.tapSkip(at: t0)
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(
@@ -439,7 +439,7 @@ final class TimelineScenarioTests: XCTestCase {
     }
 
     func testScenarioResetWithoutProgressRecordsNothing() {
-        scenario.harness.tapReinitialiser(at: t0)
+        scenario.harness.tapReset(at: t0)
 
         scenario.assertOutcome(
             TimelineScenarioExpectations(

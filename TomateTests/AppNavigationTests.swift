@@ -14,8 +14,8 @@ private struct AppNavigationHarness {
         self.store = store
         self.timer = timer
         self.timerHarness = TimerTestHarness(timer: timer)
-        self.calendar = StatsCalendar.french
-        self.navigation = StatsNavigationModel(calendar: StatsCalendar.french, selectedDate: selectedDate)
+        self.calendar = StatsCalendar.stats
+        self.navigation = StatsNavigationModel(calendar: StatsCalendar.stats, selectedDate: selectedDate)
     }
 
     var selectedDate: Date {
@@ -38,13 +38,13 @@ private struct AppNavigationHarness {
         navigation.showTimer()
     }
 
-    // MARK: - Stats period tabs (Jour / Semaine)
+    // MARK: - Stats period tabs (Day / Week)
 
-    mutating func tapJourTab() {
+    mutating func tapDayTab() {
         navigation.selectPeriod(.day)
     }
 
-    mutating func tapSemaineTab() {
+    mutating func tapWeekTab() {
         navigation.selectPeriod(.week)
     }
 
@@ -58,7 +58,7 @@ private struct AppNavigationHarness {
         navigation.shiftDate(by: 1)
     }
 
-    mutating func tapAujourdhui(to date: Date) {
+    mutating func tapToday(to date: Date) {
         navigation.goToToday()
         navigation.selectedDate = date
     }
@@ -133,7 +133,7 @@ final class AppNavigationTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        AppPreferences.register()
+        TestPreferences.register()
 
         today = Date()
         store = SessionStore(persistence: PersistenceController.inMemory())
@@ -143,9 +143,9 @@ final class AppNavigationTests: XCTestCase {
 
     // MARK: - Navigation chrome
 
-    func testTapStatsFromTimerOpensJourOnToday() {
+    func testTapStatsFromTimerOpensDayOnToday() {
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
         nav.tapPrevious()
 
         nav.tapTimerIcon(at: today)
@@ -158,11 +158,11 @@ final class AppNavigationTests: XCTestCase {
     func testPeriodTabsResetToToday() {
         nav.tapStatsIcon()
 
-        nav.tapJourTab()
+        nav.tapDayTab()
         nav.tapPrevious()
         XCTAssertFalse(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
 
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
         XCTAssertEqual(nav.navigation.period, .week)
         XCTAssertTrue(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
 
@@ -171,7 +171,7 @@ final class AppNavigationTests: XCTestCase {
         let todayWeekStart = nav.calendar.dateInterval(of: .weekOfYear, for: today)?.start
         XCTAssertNotEqual(previousWeekStart, todayWeekStart)
 
-        nav.tapJourTab()
+        nav.tapDayTab()
         XCTAssertEqual(nav.navigation.period, .day)
         XCTAssertTrue(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
     }
@@ -182,46 +182,46 @@ final class AppNavigationTests: XCTestCase {
         XCTAssertTrue(nav.runsLiveDisplayPolling == timer.isRunning)
     }
 
-    func testStatsJourShowsTimelineNotProgressChrome() {
+    func testStatsDayShowsTimelineNotProgressChrome() {
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         XCTAssertFalse(nav.showsTimerProgressChrome)
         XCTAssertTrue(nav.showsDayTimelineBar)
         XCTAssertFalse(nav.showsWeekBottomChrome)
     }
 
-    func testStatsSemaineHidesTimelineBar() {
+    func testStatsWeekHidesTimelineBar() {
         nav.tapStatsIcon()
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
 
         XCTAssertFalse(nav.showsTimerProgressChrome)
         XCTAssertFalse(nav.showsDayTimelineBar)
         XCTAssertTrue(nav.showsWeekBottomChrome)
     }
 
-    func testSwitchingJourAndSemainePreservesRecordedSessions() throws {
-        nav.timerHarness.tapReprendre(at: today)
-        nav.timerHarness.tapPasser(at: today.addingTimeInterval(3))
+    func testSwitchingDayAndWeekPreservesRecordedSessions() throws {
+        nav.timerHarness.tapStartOrResume(at: today)
+        nav.timerHarness.tapSkip(at: today.addingTimeInterval(3))
 
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
         let afterPass = today.addingTimeInterval(3)
         XCTAssertEqual(nav.daySummary(at: afterPass).focusCount, 1)
 
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
         XCTAssertEqual(nav.weekSummary().totalFocusDuration, 3, accuracy: 0.001)
 
-        nav.tapJourTab()
+        nav.tapDayTab()
         XCTAssertEqual(nav.daySummary(at: afterPass).focusCount, 1)
     }
 
     // MARK: - Recording across screens
 
-    func testCompleteFocusWhileOnStatsJourRecordsAndUpdatesDayView() throws {
-        nav.timerHarness.tapReprendre(at: today)
+    func testCompleteFocusWhileOnStatsDayRecordsAndUpdatesDayView() throws {
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         XCTAssertTrue(nav.runsLiveDisplayPolling)
 
@@ -238,10 +238,10 @@ final class AppNavigationTests: XCTestCase {
         XCTAssertEqual(weekDay.focusDuration, 5, accuracy: 0.001)
     }
 
-    func testCompleteFocusWhileOnStatsSemaineRecordsWithoutTimeline() throws {
-        nav.timerHarness.tapReprendre(at: today)
+    func testCompleteFocusWhileOnStatsWeekRecordsWithoutTimeline() throws {
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
 
         XCTAssertFalse(nav.showsDayTimelineBar)
         XCTAssertTrue(nav.runsLiveDisplayPolling)
@@ -253,11 +253,11 @@ final class AppNavigationTests: XCTestCase {
         XCTAssertNil(nav.displayTimeline(at: today.addingTimeInterval(5)).first { $0.kind == .rest })
     }
 
-    func testJourToSemaineWhileRunningStillCompletes() throws {
-        nav.timerHarness.tapReprendre(at: today)
+    func testDayToWeekWhileRunningStillCompletes() throws {
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapJourTab()
-        nav.tapSemaineTab()
+        nav.tapDayTab()
+        nav.tapWeekTab()
 
         let completeAt = today.addingTimeInterval(5)
         nav.timerHarness.tickCompletion(at: completeAt)
@@ -269,9 +269,9 @@ final class AppNavigationTests: XCTestCase {
     // MARK: - Phase completion navigation
 
     func testFocusCompletionOnStatsReturnsToTimerTab() {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         nav.timerHarness.tickLiveDisplay(at: today.addingTimeInterval(5)) {
             nav.handleLiveDisplayPhaseChange()
@@ -284,9 +284,9 @@ final class AppNavigationTests: XCTestCase {
     func testRestCompletionOnStatsReturnsToTimerTab() {
         timer.configuration.autoStartBreaks = true
 
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
 
         nav.timerHarness.tickLiveDisplay(at: today.addingTimeInterval(5)) {
             nav.handleLiveDisplayPhaseChange()
@@ -302,12 +302,12 @@ final class AppNavigationTests: XCTestCase {
         XCTAssertTrue(nav.showsTimerProgressChrome)
     }
 
-    // MARK: - Live timeline (Jour)
+    // MARK: - Live timeline (Day)
 
-    func testLiveTimelineVisibleOnJourWhileRunningToday() throws {
-        nav.timerHarness.tapReprendre(at: today)
+    func testLiveTimelineVisibleOnDayWhileRunningToday() throws {
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         let runningAt = today.addingTimeInterval(2)
         let displayed = nav.displayTimeline(at: runningAt)
@@ -319,11 +319,11 @@ final class AppNavigationTests: XCTestCase {
     }
 
     func testLiveTimelineShowsFocusFrozenWhilePaused() throws {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         let pausedAt = today.addingTimeInterval(2)
         nav.timerHarness.tapPause(at: pausedAt)
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         let later = pausedAt.addingTimeInterval(30)
         let displayed = nav.displayTimeline(at: later)
@@ -337,9 +337,9 @@ final class AppNavigationTests: XCTestCase {
     }
 
     func testNoLiveTimelineWhenBrowsingPreviousDay() {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
         nav.tapPrevious()
 
         XCTAssertFalse(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
@@ -347,11 +347,11 @@ final class AppNavigationTests: XCTestCase {
     }
 
     func testNavigateBackToTodayRestoresLiveTimeline() throws {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
         nav.tapPrevious()
-        nav.tapAujourdhui(to: today)
+        nav.tapToday(to: today)
 
         let displayed = nav.displayTimeline(at: today.addingTimeInterval(1))
         XCTAssertEqual(displayed.count, 1)
@@ -359,15 +359,15 @@ final class AppNavigationTests: XCTestCase {
         XCTAssertEqual(displayed[0].duration, 1, accuracy: 0.001)
     }
 
-    func testDisplayTimelineMergePersistedAndLiveOnJour() throws {
-        nav.timerHarness.tapReprendre(at: today)
+    func testDisplayTimelineMergePersistedAndLiveOnDay() throws {
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.timerHarness.tapPause(at: today.addingTimeInterval(3))
-        nav.timerHarness.tapReprendre(at: today.addingTimeInterval(6))
+        nav.timerHarness.tapStartOrResume(at: today.addingTimeInterval(6))
 
-        nav.timerHarness.tapPasser(at: today.addingTimeInterval(9))
+        nav.timerHarness.tapSkip(at: today.addingTimeInterval(9))
 
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         let runningAt = today.addingTimeInterval(11)
         let displayed = nav.displayTimeline(at: runningAt)
@@ -381,12 +381,12 @@ final class AppNavigationTests: XCTestCase {
         XCTAssertEqual(displayed[2].duration, 2, accuracy: 0.001)
     }
 
-    func testDisplayTimelineWallClockPauseGapOnJour() throws {
-        nav.timerHarness.tapReprendre(at: today)
+    func testDisplayTimelineWallClockPauseGapOnDay() throws {
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.timerHarness.tapPause(at: today.addingTimeInterval(10))
 
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         let pausedAt = today.addingTimeInterval(13)
         var displayed = nav.displayTimeline(at: pausedAt)
@@ -395,7 +395,7 @@ final class AppNavigationTests: XCTestCase {
         XCTAssertEqual(displayed[0].duration, 10, accuracy: 0.001)
         XCTAssertEqual(displayed[0].endDate, today.addingTimeInterval(10))
 
-        nav.timerHarness.tapReprendre(at: pausedAt)
+        nav.timerHarness.tapStartOrResume(at: pausedAt)
 
         let runningAt = pausedAt.addingTimeInterval(15)
         displayed = nav.displayTimeline(at: runningAt)
@@ -409,11 +409,11 @@ final class AppNavigationTests: XCTestCase {
     // MARK: - Week navigation
 
     func testPreviousWeekShowsNoTodaySessions() throws {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.timerHarness.tickCompletion(at: today.addingTimeInterval(5))
 
         nav.tapStatsIcon()
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
         nav.tapPrevious()
 
         XCTAssertEqual(nav.weekSummary().totalFocusDuration, 0, accuracy: 0.001)
@@ -421,13 +421,13 @@ final class AppNavigationTests: XCTestCase {
     }
 
     func testWeekColumnShowsFocusCountForToday() throws {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.timerHarness.tickCompletion(at: today.addingTimeInterval(5))
-        nav.timerHarness.tapPasser(at: today.addingTimeInterval(6)) // skip rest → focus auto-starts
-        nav.timerHarness.tapPasser(at: today.addingTimeInterval(9))
+        nav.timerHarness.tapSkip(at: today.addingTimeInterval(6)) // skip rest → focus auto-starts
+        nav.timerHarness.tapSkip(at: today.addingTimeInterval(9))
 
         nav.tapStatsIcon()
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
 
         let todayEntry = try XCTUnwrap(nav.weekDayEntry(containing: today))
         XCTAssertEqual(todayEntry.focusCount, 2)
@@ -441,21 +441,21 @@ final class AppNavigationTests: XCTestCase {
     func testAutoStartBreakRecordsBothInDayAndWeekViews() throws {
         timer.configuration.autoStartBreaks = true
 
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.timerHarness.tickCompletion(at: today.addingTimeInterval(5))
         nav.timerHarness.tickCompletion(at: today.addingTimeInterval(7))
 
         nav.tapStatsIcon()
-        nav.tapJourTab()
+        nav.tapDayTab()
 
         let afterRest = today.addingTimeInterval(7)
         let day = nav.daySummary(at: afterRest)
         XCTAssertEqual(day.focusCount, 1)
-        XCTAssertEqual(day.restCount, 0) // 2 s calm < seuil compteur (3 s tests)
+        XCTAssertEqual(day.restCount, 0) // 2 s break < count threshold (3 s in tests)
         XCTAssertEqual(day.focusDuration, 5, accuracy: 0.001)
         XCTAssertEqual(day.restDuration, 2, accuracy: 0.001)
 
-        nav.tapSemaineTab()
+        nav.tapWeekTab()
         let todayEntry = try XCTUnwrap(nav.weekDayEntry(containing: today))
         XCTAssertEqual(todayEntry.focusCount, 1)
         XCTAssertEqual(todayEntry.restCount, 0)
@@ -464,7 +464,7 @@ final class AppNavigationTests: XCTestCase {
     // MARK: - Toolbar reset semantics
 
     func testTimerIconFromStatsDoesNotResetRunningSession() {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.tapStatsIcon()
         nav.tapTimerIcon(at: today.addingTimeInterval(2))
 
@@ -474,7 +474,7 @@ final class AppNavigationTests: XCTestCase {
     }
 
     func testTimerIconFromTimerResetsSession() throws {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.timerHarness.tapPause(at: today.addingTimeInterval(3))
         nav.tapTimerIcon(at: today.addingTimeInterval(13))
 
@@ -489,15 +489,15 @@ final class AppNavigationTests: XCTestCase {
     // MARK: - Black time across navigation
 
     func testPauseGapExcludedAfterNavigatingAcrossTabs() throws {
-        nav.timerHarness.tapReprendre(at: today)
+        nav.timerHarness.tapStartOrResume(at: today)
         nav.timerHarness.tapPause(at: today.addingTimeInterval(2))
 
         nav.tapStatsIcon()
-        nav.tapSemaineTab()
-        nav.tapJourTab()
+        nav.tapWeekTab()
+        nav.tapDayTab()
         nav.tapTimerIcon(at: today.addingTimeInterval(20))
 
-        nav.timerHarness.tapReprendre(at: today.addingTimeInterval(20))
+        nav.timerHarness.tapStartOrResume(at: today.addingTimeInterval(20))
         nav.timerHarness.tickCompletion(at: today.addingTimeInterval(23))
 
         XCTAssertEqual(store.sessions.count, 2)

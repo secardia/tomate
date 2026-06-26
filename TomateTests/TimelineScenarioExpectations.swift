@@ -1,12 +1,12 @@
 import XCTest
 @testable import Tomate
 
-/// Résultat attendu pour un scénario : graphe, cumul durée, compteur phases.
+/// Expected outcome for a scenario: graph, cumulative duration, phase counts.
 ///
-/// Règle enregistrement :
-/// - Démarrer / Reprendre / Passer (début phase) → chrono seulement, rien en base.
-/// - Pause / Passer (fin) / Réinitialiser → save direct (dates = segment en cours).
-/// - Cumul stats = sessions persistées + segment live ouvert (non encore save).
+/// Recording rule:
+/// - Start / Resume / Skip (phase start) → timer only, nothing in DB.
+/// - Pause / Skip (end) / Reset → direct save (dates = current segment).
+/// - Stats cumulative = persisted sessions + open live segment (not yet saved).
 struct TimelineScenarioExpectations {
     struct SegmentSpec: Equatable {
         let kind: TimelineIntervalKind
@@ -14,7 +14,7 @@ struct TimelineScenarioExpectations {
     }
 
     let persistedTimeline: [SegmentSpec]
-    /// Segments affichés sur la barre Jour (persistés + live). Nil = identique aux persistés.
+    /// Segments shown on the Day bar (persisted + live). Nil = same as persisted.
     let displayTimeline: [SegmentSpec]?
     let focusDuration: TimeInterval
     let restDuration: TimeInterval
@@ -78,10 +78,10 @@ struct TimelineScenarioHarness {
 
     func daySummary(at now: Date, on date: Date? = nil) -> DaySummary {
         let day = date ?? t0
-        let live = timer.liveActiveDuration(at: now, selectedDate: day, calendar: StatsCalendar.french)
+        let live = timer.liveActiveDuration(at: now, selectedDate: day, calendar: StatsCalendar.stats)
         return store.daySummary(
             for: day,
-            calendar: StatsCalendar.french,
+            calendar: StatsCalendar.stats,
             minimumSessionCountSeconds: minimumSessionCountSeconds,
             liveFocusDuration: live.focus,
             liveRestDuration: live.rest
@@ -91,14 +91,14 @@ struct TimelineScenarioHarness {
     func displayTimeline(at now: Date, selectedDate: Date? = nil) -> [TimelineInterval] {
         let day = selectedDate ?? t0
         let reference = timer.timelineDisplayDate(at: now)
-        let live = StatsCalendar.french.isDate(day, inSameDayAs: reference)
+        let live = StatsCalendar.stats.isDate(day, inSameDayAs: reference)
             ? timer.timelineIntervals(at: reference)
             : []
         return TimelineDisplay.displayIntervals(
-            persisted: store.timeline(on: day, calendar: StatsCalendar.french),
+            persisted: store.timeline(on: day, calendar: StatsCalendar.stats),
             live: live,
             selectedDate: day,
-            calendar: StatsCalendar.french
+            calendar: StatsCalendar.stats
         )
     }
 

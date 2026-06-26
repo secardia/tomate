@@ -1,11 +1,16 @@
 import AppKit
 import Foundation
 
-/// Réglages applicatifs — UserDefaults (plist dans ~/Library/Preferences).
+/// App preferences — UserDefaults (plist in ~/Library/Preferences).
 enum AppPreferences {
     private static let defaults = UserDefaults.standard
 
+    static let languageKey = "preferences.language"
+    static let firstWeekdayKey = "preferences.calendar.firstWeekday"
+
     private enum Keys {
+        static let language = languageKey
+        static let firstWeekday = firstWeekdayKey
         static let focusDurationSeconds = "preferences.timer.focusDurationSeconds"
         static let restDurationSeconds = "preferences.timer.restDurationSeconds"
         static let autoStartBreaks = "preferences.timer.autoStartBreaks"
@@ -24,10 +29,41 @@ enum AppPreferences {
 
     static func register() {
         defaults.register(defaults: [
+            Keys.language: AppLanguage.systemDefault.rawValue,
+            Keys.firstWeekday: WeekStartDay.systemDefault.rawValue,
             Keys.focusDurationSeconds: Defaults.focusDurationSeconds,
             Keys.restDurationSeconds: Defaults.restDurationSeconds,
             Keys.autoStartBreaks: Defaults.autoStartBreaks,
         ])
+    }
+
+    // MARK: - Language
+
+    static var language: AppLanguage {
+        get {
+            guard let raw = defaults.string(forKey: Keys.language),
+                  let language = AppLanguage(rawValue: raw) else {
+                return AppLanguage.systemDefault
+            }
+            return language
+        }
+        set { defaults.set(newValue.rawValue, forKey: Keys.language) }
+    }
+
+    // MARK: - Calendar
+
+    static var firstWeekday: WeekStartDay {
+        get {
+            guard defaults.object(forKey: Keys.firstWeekday) != nil else {
+                return WeekStartDay.systemDefault
+            }
+            let value = defaults.integer(forKey: Keys.firstWeekday)
+            guard (1...7).contains(value) else {
+                return WeekStartDay.systemDefault
+            }
+            return WeekStartDay(rawValue: value)
+        }
+        set { defaults.set(newValue.rawValue, forKey: Keys.firstWeekday) }
     }
 
     // MARK: - Timer
@@ -52,7 +88,7 @@ enum AppPreferences {
         set { defaults.set(newValue, forKey: Keys.autoStartBreaks) }
     }
 
-    // MARK: - Fenêtre
+    // MARK: - Window
 
     static func saveWindowFrame(_ frame: NSRect) {
         defaults.set(frame.origin.x, forKey: Keys.windowFrameX)
