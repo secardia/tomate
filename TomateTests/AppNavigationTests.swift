@@ -33,6 +33,11 @@ private struct AppNavigationHarness {
         navigation.tapTimer { timerHarness.tapToolbarTimerReset(at: date) }
     }
 
+    /// Mirrors `LiveDisplayDriver`'s phase-change handler in `RootView`.
+    mutating func handleLiveDisplayPhaseChange() {
+        navigation.showTimer()
+    }
+
     // MARK: - Stats period tabs (Jour / Semaine)
 
     mutating func tapJourTab() {
@@ -226,6 +231,42 @@ final class AppNavigationTests: XCTestCase {
 
         XCTAssertEqual(store.sessions.count, 1)
         XCTAssertEqual(nav.weekSummary().totalFocusDuration, 5, accuracy: 0.001)
+    }
+
+    // MARK: - Phase completion navigation
+
+    func testFocusCompletionOnStatsReturnsToTimerTab() {
+        nav.timerHarness.tapReprendre(at: today)
+        nav.tapStatsIcon()
+        nav.tapJourTab()
+
+        nav.timerHarness.tickLiveDisplay(at: today.addingTimeInterval(5)) {
+            nav.handleLiveDisplayPhaseChange()
+        }
+
+        XCTAssertEqual(nav.navigation.screen, .timer)
+        XCTAssertTrue(nav.showsTimerProgressChrome)
+    }
+
+    func testRestCompletionOnStatsReturnsToTimerTab() {
+        timer.configuration.autoStartBreaks = true
+
+        nav.timerHarness.tapReprendre(at: today)
+        nav.tapStatsIcon()
+        nav.tapSemaineTab()
+
+        nav.timerHarness.tickLiveDisplay(at: today.addingTimeInterval(5)) {
+            nav.handleLiveDisplayPhaseChange()
+        }
+        XCTAssertEqual(nav.navigation.screen, .timer)
+
+        nav.tapStatsIcon()
+        nav.timerHarness.tickLiveDisplay(at: today.addingTimeInterval(7)) {
+            nav.handleLiveDisplayPhaseChange()
+        }
+
+        XCTAssertEqual(nav.navigation.screen, .timer)
+        XCTAssertTrue(nav.showsTimerProgressChrome)
     }
 
     // MARK: - Live timeline (Jour)

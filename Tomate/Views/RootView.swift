@@ -22,7 +22,10 @@ struct RootView: View {
         .background {
             SystemSleepMonitor(timer: timer)
             AppTerminationMonitor(timer: timer)
-            LiveDisplayDriver(timer: timer)
+            LiveDisplayDriver(timer: timer) {
+                navigation.showTimer()
+                AppWindowController.activate()
+            }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
             topBar

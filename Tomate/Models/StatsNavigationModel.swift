@@ -33,6 +33,10 @@ final class StatsNavigationModel {
         selectedDate = Date()
     }
 
+    func showTimer() {
+        screen = .timer
+    }
+
     func tapTimer(resetTimer: () -> Void) {
         if screen == .timer {
             resetTimer()
