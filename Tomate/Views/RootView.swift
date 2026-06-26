@@ -137,7 +137,7 @@ struct RootView: View {
                     SegmentedControlCell(
                         size: SegmentedControlMetrics.periodCell,
                         isActive: navigation.period == item,
-                        action: { navigation.period = item }
+                        action: { navigation.selectPeriod(item) }
                     ) {
                         Text(item.rawValue)
                             .font(.system(size: 13, weight: .medium))

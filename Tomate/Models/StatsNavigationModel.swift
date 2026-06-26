@@ -45,7 +45,17 @@ final class StatsNavigationModel {
     }
 
     func tapStats() {
+        let enteringStats = screen != .stats
         screen = .stats
+        if enteringStats {
+            period = .day
+            goToToday()
+        }
+    }
+
+    func selectPeriod(_ period: StatsPeriod) {
+        self.period = period
+        goToToday()
     }
 
     func statsNavigationTitle() -> String {

@@ -41,11 +41,11 @@ private struct AppNavigationHarness {
     // MARK: - Stats period tabs (Jour / Semaine)
 
     mutating func tapJourTab() {
-        navigation.period = .day
+        navigation.selectPeriod(.day)
     }
 
     mutating func tapSemaineTab() {
-        navigation.period = .week
+        navigation.selectPeriod(.week)
     }
 
     // MARK: - Date navigator
@@ -142,6 +142,39 @@ final class AppNavigationTests: XCTestCase {
     }
 
     // MARK: - Navigation chrome
+
+    func testTapStatsFromTimerOpensJourOnToday() {
+        nav.tapStatsIcon()
+        nav.tapJourTab()
+        nav.tapPrevious()
+
+        nav.tapTimerIcon(at: today)
+        nav.tapStatsIcon()
+
+        XCTAssertEqual(nav.navigation.period, .day)
+        XCTAssertTrue(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
+    }
+
+    func testPeriodTabsResetToToday() {
+        nav.tapStatsIcon()
+
+        nav.tapJourTab()
+        nav.tapPrevious()
+        XCTAssertFalse(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
+
+        nav.tapSemaineTab()
+        XCTAssertEqual(nav.navigation.period, .week)
+        XCTAssertTrue(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
+
+        nav.tapPrevious()
+        let previousWeekStart = nav.calendar.dateInterval(of: .weekOfYear, for: nav.selectedDate)?.start
+        let todayWeekStart = nav.calendar.dateInterval(of: .weekOfYear, for: today)?.start
+        XCTAssertNotEqual(previousWeekStart, todayWeekStart)
+
+        nav.tapJourTab()
+        XCTAssertEqual(nav.navigation.period, .day)
+        XCTAssertTrue(nav.calendar.isDate(nav.selectedDate, inSameDayAs: today))
+    }
 
     func testTimerScreenShowsProgressChromeOnly() {
         XCTAssertTrue(nav.showsTimerProgressChrome)
