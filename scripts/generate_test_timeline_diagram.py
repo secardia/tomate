@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PNG clairs : événements · barre vue Jour · colonnes stats."""
+"""Clear PNGs: events · Day view bar · stats columns."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT_DIR = ROOT / "docs" / "test-timelines"
+OUT_DIR = ROOT / "test-visualization" / "test-timelines"
 INDEX_PATH = OUT_DIR / "00-index.png"
 
 # AppColors
@@ -31,9 +31,9 @@ C_BTN = "#6EB5FF"
 INSET = 0.05
 
 RULES = (
-    "Lance chrono : Démarrer · Reprendre · Passer (phase suivante) · "
-    "Save direct : Pause · Passer (fin phase) · Réinitialiser · fin chrono · "
-    "Dates save = segment en cours (start…instant du clic)"
+    "Starts timer: Start · Resume · Skip (next phase) · "
+    "Direct save: Pause · Skip (end phase) · Reset · timer end · "
+    "Save dates = current segment (start…click instant)"
 )
 
 
@@ -75,7 +75,7 @@ class TestDiagram:
 
     @property
     def show_db_section(self) -> bool:
-        """Affiche 2a Timeline DB quand persisté est renseigné (même si = affiché)."""
+        """Show 2a Timeline DB when persisted is set (even if same as displayed)."""
 
         return self.persisted_graph is not None
 
@@ -89,50 +89,50 @@ def seg(kind: str, *pairs: tuple[str, float]) -> list[tuple[str, float]]:
 
 
 KIND_COLOR = {"focus": C_FOCUS, "rest": C_REST}
-KIND_LABEL = {"focus": "Concentration", "rest": "Pause"}
+KIND_LABEL = {"focus": "Focus", "rest": "Break"}
 
 
 TESTS: list[TestDiagram] = [
     TestDiagram(
         "testScenarioPassFocus2Seconds",
-        "Passer après 2 s de focus",
-        "Après Passer · t = 2 s",
+        "Skip after 2 s of focus",
+        "After Skip · t = 2 s",
         2,
-        [TimelineEvent(0, "Démarrer"), TimelineEvent(2, "Passer", "2 s → save")],
+        [TimelineEvent(0, "Start"), TimelineEvent(2, "Skip", "2 s → save")],
         seg("focus", ("focus", 2)),
         seg("focus", ("focus", 2)),
         StatsExpectation(2, 0, 0, 0, 1),
     ),
     TestDiagram(
         "testScenarioPassFocus3SecondsCountsSession",
-        "Passer après 3 s — compte 1 phase",
-        "Après Passer · t = 3 s",
+        "Skip after 3 s — counts 1 phase",
+        "After Skip · t = 3 s",
         3,
-        [TimelineEvent(0, "Démarrer"), TimelineEvent(3, "Passer", "3 s → save")],
+        [TimelineEvent(0, "Start"), TimelineEvent(3, "Skip", "3 s → save")],
         seg("focus", ("focus", 3)),
         seg("focus", ("focus", 3)),
         StatsExpectation(3, 0, 1, 0, 1),
     ),
     TestDiagram(
         "testScenarioPassFocus1Second",
-        "Passer après 1 s — durée oui, phase non",
-        "Après Passer · t = 1 s",
+        "Skip after 1 s — duration yes, phase no",
+        "After Skip · t = 1 s",
         1,
-        [TimelineEvent(0, "Démarrer"), TimelineEvent(1, "Passer", "1 s → save")],
+        [TimelineEvent(0, "Start"), TimelineEvent(1, "Skip", "1 s → save")],
         seg("focus", ("focus", 1)),
         seg("focus", ("focus", 1)),
         StatsExpectation(1, 0, 0, 0, 1),
     ),
     TestDiagram(
         "testScenarioPauseResumeThenPass",
-        "Pause chrono → 2 sessions focus",
-        "Après Passer · t = 7 s",
+        "Timer pause → 2 focus sessions",
+        "After Skip · t = 7 s",
         7,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(2, "Pause", "2 s → save"),
-            TimelineEvent(5, "Reprendre", "nouvelle session"),
-            TimelineEvent(7, "Passer", "2 s → save"),
+            TimelineEvent(5, "Resume", "new session"),
+            TimelineEvent(7, "Skip", "2 s → save"),
         ],
         seg("focus", ("focus", 2), ("focus", 2)),
         seg("focus", ("focus", 2), ("focus", 2)),
@@ -140,14 +140,14 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioShortPauseStillShowsGray",
-        "Pause courte — 2 sessions focus",
-        "Après Passer · t = 5 s",
+        "Short pause — 2 focus sessions",
+        "After Skip · t = 5 s",
         5,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(2, "Pause", "2 s → save"),
-            TimelineEvent(3, "Reprendre", "nouvelle session"),
-            TimelineEvent(5, "Passer", "2 s → save"),
+            TimelineEvent(3, "Resume", "new session"),
+            TimelineEvent(5, "Skip", "2 s → save"),
         ],
         seg("focus", ("focus", 2), ("focus", 2)),
         seg("focus", ("focus", 2), ("focus", 2)),
@@ -155,14 +155,14 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioKeepsShortTrailingFocusSegment",
-        "Dernier bout de focus 1 s conservé",
-        "Après Passer · t = 9 s",
+        "Last 1 s focus segment kept",
+        "After Skip · t = 9 s",
         9,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(5, "Pause", "5 s → save"),
-            TimelineEvent(8, "Reprendre", "nouvelle session"),
-            TimelineEvent(9, "Passer", "1 s → save"),
+            TimelineEvent(8, "Resume", "new session"),
+            TimelineEvent(9, "Skip", "1 s → save"),
         ],
         seg("focus", ("focus", 5), ("focus", 1)),
         seg("focus", ("focus", 5), ("focus", 1)),
@@ -170,11 +170,11 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioWhilePausedLiveGraphFrozen",
-        "Pendant la pause : barre figée, pas de gris live",
-        "Pendant la pause · t = 32 s (+30 s d’attente)",
+        "While paused: frozen bar, no live gray",
+        "While paused · t = 32 s (+30 s wait)",
         32,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(2, "Pause", "2 s → save"),
         ],
         seg("focus", ("focus", 2)),
@@ -183,14 +183,14 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioNaturalCompletionAfterPause",
-        "Fin naturelle après pause longue",
-        "Fin chrono · t = 15 s",
+        "Natural completion after long pause",
+        "Timer end · t = 15 s",
         15,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(2, "Pause", "2 s → save"),
-            TimelineEvent(12, "Reprendre", "nouvelle session"),
-            TimelineEvent(15, "Fin chrono", "3 s → save"),
+            TimelineEvent(12, "Resume", "new session"),
+            TimelineEvent(15, "Timer end", "3 s → save"),
         ],
         seg("focus", ("focus", 2), ("focus", 3)),
         seg("focus", ("focus", 2), ("focus", 3)),
@@ -198,23 +198,23 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioNaturalCompletionSimple",
-        "Fin naturelle focus 5 s",
-        "Fin chrono · t = 5 s",
+        "Natural focus completion 5 s",
+        "Timer end · t = 5 s",
         5,
-        [TimelineEvent(0, "Démarrer"), TimelineEvent(5, "Fin chrono", "5 s → save")],
+        [TimelineEvent(0, "Start"), TimelineEvent(5, "Timer end", "5 s → save")],
         seg("focus", ("focus", 5)),
         seg("focus", ("focus", 5)),
         StatsExpectation(5, 0, 1, 0, 1),
     ),
     TestDiagram(
         "testScenarioReinitWhilePaused",
-        "Réinitialiser pendant la pause",
-        "Après Réinitialiser · t = 13 s · phase = focus",
+        "Reset while paused",
+        "After Reset · t = 13 s · phase = focus",
         13,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(3, "Pause", "3 s → save"),
-            TimelineEvent(13, "Réinitialiser", "focus déjà save à la Pause"),
+            TimelineEvent(13, "Reset", "focus already saved at Pause"),
         ],
         seg("focus", ("focus", 3)),
         seg("focus", ("focus", 3)),
@@ -222,24 +222,24 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioReinitShortFocus",
-        "Réinitialiser après 2 s",
-        "Après Réinitialiser · t = 2 s",
+        "Reset after 2 s",
+        "After Reset · t = 2 s",
         2,
-        [TimelineEvent(0, "Démarrer"), TimelineEvent(2, "Réinitialiser", "2 s → save")],
+        [TimelineEvent(0, "Start"), TimelineEvent(2, "Reset", "2 s → save")],
         seg("focus", ("focus", 2)),
         seg("focus", ("focus", 2)),
         StatsExpectation(2, 0, 0, 0, 1),
     ),
     TestDiagram(
         "testScenarioReinitAfterPauseResumeKeepsAllSegments",
-        "Réinit garde les sessions focus",
-        "Après Réinitialiser · t = 9 s",
+        "Reset keeps focus sessions",
+        "After Reset · t = 9 s",
         9,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(5, "Pause", "5 s → save"),
-            TimelineEvent(8, "Reprendre", "nouvelle session"),
-            TimelineEvent(9, "Réinitialiser", "1 s → save"),
+            TimelineEvent(8, "Resume", "new session"),
+            TimelineEvent(9, "Reset", "1 s → save"),
         ],
         seg("focus", ("focus", 5), ("focus", 1)),
         seg("focus", ("focus", 5), ("focus", 1)),
@@ -247,13 +247,13 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioFocusThenCalmShortRest",
-        "Focus puis calm 2 s — calm pas compté",
-        "Après 2e Passer · t = 5 s",
+        "Focus then 2 s break — break not counted",
+        "After 2nd Skip · t = 5 s",
         5,
         [
-            TimelineEvent(0, "Démarrer"),
-            TimelineEvent(3, "Passer", "3 s focus → save"),
-            TimelineEvent(5, "Passer", "2 s calm → save"),
+            TimelineEvent(0, "Start"),
+            TimelineEvent(3, "Skip", "3 s focus → save"),
+            TimelineEvent(5, "Skip", "2 s break → save"),
         ],
         seg("focus", ("focus", 3), ("rest", 2)),
         seg("focus", ("focus", 3), ("rest", 2)),
@@ -262,27 +262,27 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioFocusThenCalmBothCount",
-        "Focus puis calm 3 s — les deux comptés",
-        "Après 2e Passer · t = 6 s",
+        "Focus then 3 s break — both counted",
+        "After 2nd Skip · t = 6 s",
         6,
         [
-            TimelineEvent(0, "Démarrer"),
-            TimelineEvent(3, "Passer", "3 s focus → save"),
-            TimelineEvent(6, "Passer", "3 s calm → save"),
+            TimelineEvent(0, "Start"),
+            TimelineEvent(3, "Skip", "3 s focus → save"),
+            TimelineEvent(6, "Skip", "3 s break → save"),
         ],
         seg("focus", ("focus", 3), ("rest", 3)),
         seg("focus", ("focus", 3), ("rest", 3)),
         StatsExpectation(3, 3, 1, 1, 2),
     ),
     TestDiagram(
-        "testScenarioReprendreDoesNotSaveUntilPausePassOrReinit",
-        "Reprendre ne save pas — seule la Pause a flush",
-        "Après Reprendre · t = 20 s (sans Passer)",
+        "testScenarioResumeDoesNotSaveUntilPauseSkipOrReset",
+        "Resume does not save — only Pause flushed",
+        "After Resume · t = 20 s (no Skip)",
         20,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(10, "Pause", "10 s → save direct"),
-            TimelineEvent(13, "Reprendre", "lance chrono · pas de save"),
+            TimelineEvent(13, "Resume", "starts timer · no save"),
         ],
         seg("focus", ("focus", 10), ("focus", 7)),
         seg("focus", ("focus", 10), ("focus", 7)),
@@ -291,13 +291,13 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioLiveGraphBeforePass",
-        "Pause à 10 s → 1 session save · +15 s live",
-        "Sans Passer · t = 28 s",
+        "Pause at 10 s → 1 session saved · +15 s live",
+        "No Skip · t = 28 s",
         28,
         [
-            TimelineEvent(0, "Démarrer"),
-            TimelineEvent(10, "Pause", "10 s → enregistré"),
-            TimelineEvent(13, "Reprendre", "nouvelle session"),
+            TimelineEvent(0, "Start"),
+            TimelineEvent(10, "Pause", "10 s → saved"),
+            TimelineEvent(13, "Resume", "new session"),
         ],
         seg("focus", ("focus", 10), ("focus", 15)),
         seg("focus", ("focus", 10), ("focus", 15)),
@@ -306,14 +306,14 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioLiveGraphAfterPassWithCalmRunning",
-        "Après Passer : historique + calm live",
-        "Pendant calm · t = 11 s",
+        "After Skip: history + live break",
+        "During break · t = 11 s",
         11,
         [
-            TimelineEvent(0, "Démarrer"),
+            TimelineEvent(0, "Start"),
             TimelineEvent(3, "Pause", "3 s → save"),
-            TimelineEvent(6, "Reprendre", "nouvelle session"),
-            TimelineEvent(9, "Passer", "focus 3 s → save · calm live"),
+            TimelineEvent(6, "Resume", "new session"),
+            TimelineEvent(9, "Skip", "focus 3 s → save · live break"),
         ],
         seg("focus", ("focus", 3), ("focus", 3), ("rest", 2)),
         seg("focus", ("focus", 3), ("focus", 3), ("rest", 2)),
@@ -322,20 +322,20 @@ TESTS: list[TestDiagram] = [
     ),
     TestDiagram(
         "testScenarioPassWithZeroActiveRecordsNothing",
-        "Passer sans démarrer",
-        "Immédiat · t = 0 s",
+        "Skip without starting",
+        "Immediate · t = 0 s",
         0,
-        [TimelineEvent(0, "Passer")],
+        [TimelineEvent(0, "Skip")],
         [],
         [],
         StatsExpectation(0, 0, 0, 0, 0),
     ),
     TestDiagram(
         "testScenarioResetWithoutProgressRecordsNothing",
-        "Réinitialiser sans démarrer",
-        "Immédiat · t = 0 s",
+        "Reset without starting",
+        "Immediate · t = 0 s",
         0,
-        [TimelineEvent(0, "Réinitialiser")],
+        [TimelineEvent(0, "Reset")],
         [],
         [],
         StatsExpectation(0, 0, 0, 0, 0),
@@ -360,7 +360,7 @@ def mmss(seconds: float) -> str:
 
 
 def clock_duration(seconds: float) -> str:
-    """Comme DurationFormatter.clockDuration — arrondi minute supérieure."""
+    """Like DurationFormatter.clockDuration — round up to the next minute."""
     total_minutes = max(0, int(-(-seconds / 60)))  # ceil
     return f"{total_minutes // 60:02d}:{total_minutes % 60:02d}"
 
@@ -394,23 +394,23 @@ def section_header(ax: Axes, num: str, title: str, subtitle: str) -> None:
 def graph_diff_note(test: TestDiagram) -> str:
     notes: list[str] = []
     if test.chrono != test.display_graph:
-        notes.append("Bandeau §1 = durées actives · trous de pause non enregistrés.")
+        notes.append("Section §1 band = active durations · pause gaps not recorded.")
     if test.show_db_section:
         notes.append("2a = assertTimeline · 2b = assertDisplayTimeline.")
     if test.has_split_graph:
-        notes.append("Barre du bas inclut du live non persisté.")
+        notes.append("Bottom bar includes non-persisted live.")
     elif test.show_db_section and test.db_graph == test.display_graph:
-        notes.append("Tout est en base (timeline = barre affichée).")
+        notes.append("Everything is in DB (timeline = displayed bar).")
     elif test.stats.rest_duration > 0 and test.display_graph and test.display_graph[-1][0] == "rest":
         if test.db_graph == test.display_graph or not any(k == "rest" for k, _ in test.db_graph):
-            notes.append(f"Cumul calm +{test.stats.rest_duration:.0f}s live (phase en cours).")
+            notes.append(f"Break cumulative +{test.stats.rest_duration:.0f}s live (current phase).")
     elif test.stats.focus_duration > 0 and test.display_graph:
         live_focus = sum(d for k, d in test.display_graph if k == "focus") - sum(
             d for k, d in test.db_graph if k == "focus"
         )
         if live_focus > 0.5:
             persisted = test.stats.focus_duration - live_focus
-            notes.append(f"Cumul focus : {persisted:.0f}s base + {live_focus:.0f}s live.")
+            notes.append(f"Focus cumulative: {persisted:.0f}s persisted + {live_focus:.0f}s live.")
     return " · ".join(notes)
 
 
@@ -418,7 +418,7 @@ def specs_equal(a: list[tuple[str, float]], b: list[tuple[str, float]]) -> bool:
     return a == b
 
 
-# Miroir de TimelineScenarioTests — kinds: focus | rest
+# Mirror of TimelineScenarioTests — kinds: focus | rest
 SWIFT_EXPECTATIONS: dict[str, dict] = {
     "testScenarioPassFocus2Seconds": {
         "persisted": [("focus", 2)],
@@ -490,7 +490,7 @@ SWIFT_EXPECTATIONS: dict[str, dict] = {
         "display": [("focus", 3), ("rest", 3)],
         "stats": (3, 3, 1, 1, 2),
     },
-    "testScenarioReprendreDoesNotSaveUntilPausePassOrReinit": {
+    "testScenarioResumeDoesNotSaveUntilPauseSkipOrReset": {
         "persisted": [("focus", 10)],
         "display": [("focus", 10), ("focus", 7)],
         "stats": (17, 0, 1, 0, 1),
@@ -563,7 +563,7 @@ def draw_proportional_bar(
     segments: list[tuple[str, float, float]],
     *,
     title: str = "",
-    empty_label: str = "Aucune barre (jour vide)",
+    empty_label: str = "No bar (empty day)",
     note: str = "",
 ) -> None:
     ax.set_facecolor(C_BG)
@@ -682,7 +682,7 @@ def draw_stats_columns(ax: Axes, stats: StatsExpectation) -> None:
         ax.text(
             0.5,
             0.5,
-            "Colonnes masquées (aucune durée enregistrée)",
+            "Columns hidden (no recorded duration)",
             ha="center",
             va="center",
             color=C_MUTED,
@@ -691,7 +691,7 @@ def draw_stats_columns(ax: Axes, stats: StatsExpectation) -> None:
         ax.text(
             0.5,
             0.35,
-            f"Sessions {stats.focus_count} · Pauses {stats.rest_count}",
+            f"Sessions {stats.focus_count} · Breaks {stats.rest_count}",
             ha="center",
             va="center",
             color=C_MUTED,
@@ -701,7 +701,7 @@ def draw_stats_columns(ax: Axes, stats: StatsExpectation) -> None:
 
     cols = [
         ("Sessions", stats.focus_count, stats.focus_duration, C_FOCUS),
-        ("Pauses", stats.rest_count, stats.rest_duration, C_REST),
+        ("Breaks", stats.rest_count, stats.rest_duration, C_REST),
     ]
     for i, (title, count, duration, color) in enumerate(cols):
         cx = 0.25 + i * 0.5
@@ -711,7 +711,7 @@ def draw_stats_columns(ax: Axes, stats: StatsExpectation) -> None:
         ax.text(
             cx,
             0.08,
-            f"cumul réel {duration:.0f} s",
+            f"actual total {duration:.0f} s",
             ha="center",
             va="center",
             color=C_MUTED,
@@ -721,7 +721,7 @@ def draw_stats_columns(ax: Axes, stats: StatsExpectation) -> None:
     ax.text(
         0.5,
         0.95,
-        "Grand chiffre = phases comptées (≥ seuil) · durée = cumul réel sous le chiffre",
+        "Large number = counted phases (≥ threshold) · duration = actual total below",
         ha="center",
         va="top",
         color=C_MUTED,
@@ -731,7 +731,7 @@ def draw_stats_columns(ax: Axes, stats: StatsExpectation) -> None:
         ax.text(
             0.5,
             -0.12,
-            f"{stats.sessions_in_db} session(s) en base",
+            f"{stats.sessions_in_db} session(s) in DB",
             ha="center",
             va="top",
             color=C_OBSERVE,
@@ -750,7 +750,7 @@ def render_test_page(test: TestDiagram, path: Path) -> None:
     fig.text(0.05, 0.91, test.when, color=C_OBSERVE, fontsize=10, va="top")
 
     ax_h1 = fig.add_axes([0.04, 0.86, 0.92, 0.035])
-    section_header(ax_h1, "1", "Chronologie des clics", "Bandeau = horloge réelle · pastilles = boutons")
+    section_header(ax_h1, "1", "Click timeline", "Band = wall clock · pills = buttons")
 
     ax_ev = fig.add_axes([0.04, 0.58, 0.92, 0.26])
     draw_events(ax_ev, test)
@@ -758,26 +758,26 @@ def render_test_page(test: TestDiagram, path: Path) -> None:
     if test.show_db_section:
         ax_h2 = fig.add_axes([0.04, 0.53, 0.92, 0.035])
         subtitle = (
-            "Haut = assertTimeline · Bas = assertDisplayTimeline (DayTimelineBar)"
+            "Top = assertTimeline · Bottom = assertDisplayTimeline (DayTimelineBar)"
             if test.has_split_graph
-            else "Haut = assertTimeline · Bas = identique (tout persisté)"
+            else "Top = assertTimeline · Bottom = identical (all persisted)"
         )
-        section_header(ax_h2, "2", "Timeline — base vs affiché", subtitle)
+        section_header(ax_h2, "2", "Timeline — DB vs displayed", subtitle)
         db_note = ""
         if test.stats.sessions_in_db == 2 and test.test_name == "testScenarioFocusThenCalmShortRest":
-            db_note = "Sessions en base : focus 3 s · calm 2 s"
+            db_note = "Sessions in DB: focus 3 s · break 2 s"
         ax_db = fig.add_axes([0.04, 0.44, 0.92, 0.085])
         draw_proportional_bar(
             ax_db,
             segs_to_absolute(test.db_graph),
-            title="2a · Timeline DB (persisté)",
+            title="2a · Timeline DB (persisted)",
             note=db_note,
         )
         ax_bar = fig.add_axes([0.04, 0.33, 0.92, 0.085])
         draw_proportional_bar(
             ax_bar,
             segs_to_absolute(test.display_graph),
-            title="2b · Barre vue Jour (affiché)",
+            title="2b · Day view bar (displayed)",
             note=note,
         )
         leg_y = 0.28
@@ -789,8 +789,8 @@ def render_test_page(test: TestDiagram, path: Path) -> None:
         section_header(
             ax_h2,
             "2",
-            "Barre historique — vue Jour",
-            "assertTimeline = assertDisplayTimeline · proportions horloge",
+            "History bar — Day view",
+            "assertTimeline = assertDisplayTimeline · clock proportions",
         )
         ax_bar = fig.add_axes([0.04, 0.38, 0.92, 0.13])
         draw_proportional_bar(
@@ -809,8 +809,8 @@ def render_test_page(test: TestDiagram, path: Path) -> None:
     ax_leg.axis("off")
     ax_leg.legend(
         handles=[
-            mpatches.Patch(facecolor=C_FOCUS, label="Concentration"),
-            mpatches.Patch(facecolor=C_REST, label="Pause (phase calm)"),
+            mpatches.Patch(facecolor=C_FOCUS, label="Focus"),
+            mpatches.Patch(facecolor=C_REST, label="Break (rest phase)"),
         ],
         loc="center",
         ncol=2,
@@ -820,7 +820,7 @@ def render_test_page(test: TestDiagram, path: Path) -> None:
     )
 
     ax_h3 = fig.add_axes([0.04, h3_y, 0.92, 0.035])
-    section_header(ax_h3, "3", "Colonnes stats — vue Jour", "assertStats + assertSessions")
+    section_header(ax_h3, "3", "Stats columns — Day view", "assertStats + assertSessions")
 
     ax_stats = fig.add_axes([0.04, stats_y, 0.92, stats_h])
     draw_stats_columns(ax_stats, test.stats)
@@ -836,12 +836,12 @@ def render_index(path: Path) -> None:
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_facecolor(C_BG)
     ax.axis("off")
-    ax.text(0.05, 0.98, "Tomate — scénarios timeline", color="white", fontsize=16, fontweight="bold", va="top")
+    ax.text(0.05, 0.98, "Tomate — timeline scenarios", color="white", fontsize=16, fontweight="bold", va="top")
     ax.text(0.05, 0.955, RULES, color=C_MUTED, fontsize=8.5, va="top")
     ax.text(
         0.05,
         0.935,
-        "Chaque PNG : ① clics + chrono  ② barre Jour  ③ Sessions / Pauses",
+        "Each PNG: ① clicks + timer  ② Day bar  ③ Sessions / Breaks",
         color=C_MUTED,
         fontsize=8.5,
         va="top",
@@ -862,7 +862,7 @@ def render_index(path: Path) -> None:
         ax.text(
             0.05,
             y - 0.042,
-            f"     Stats: Sessions {s.focus_count} ({s.focus_duration:.0f}s) · Pauses {s.rest_count} ({s.rest_duration:.0f}s)",
+            f"     Stats: Sessions {s.focus_count} ({s.focus_duration:.0f}s) · Breaks {s.rest_count} ({s.rest_duration:.0f}s)",
             color=C_MUTED,
             fontsize=7.5,
             va="top",
@@ -893,8 +893,8 @@ def main() -> None:
 
     render_index(INDEX_PATH)
     print(f"Wrote {INDEX_PATH}")
-    shutil.copy(INDEX_PATH, ROOT / "docs" / "test-timelines.png")
-    print(f"Wrote {ROOT / 'docs' / 'test-timelines.png'}")
+    shutil.copy(INDEX_PATH, ROOT / "test-visualization" / "test-timelines.png")
+    print(f"Wrote {ROOT / 'test-visualization' / 'test-timelines.png'}")
 
 
 if __name__ == "__main__":
