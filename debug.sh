@@ -18,14 +18,6 @@ if ! xcodebuild -version &>/dev/null; then
   fi
 fi
 
-echo "→ Generating app icon…"
-python3 "$ROOT/scripts/generate_app_icon.py"
-
-# Xcode may reuse a cached AppIcon.icns even when PNGs change.
-INTERMEDIATES="$DERIVED_DATA/Build/Intermediates.noindex/Tomate.build/$CONFIG/Tomate.build"
-rm -rf "${INTERMEDIATES}"/assetcatalog*
-rm -f "$APP/Contents/Resources/AppIcon.icns"
-
 echo "→ Building ($CONFIG)…"
 xcodebuild \
   -project "$PROJECT" \

@@ -18,13 +18,6 @@ if ! xcodebuild -version &>/dev/null; then
   fi
 fi
 
-echo "→ Generating app icon…"
-python3 "$ROOT/scripts/generate_app_icon.py"
-
-INTERMEDIATES="$DERIVED_DATA/Build/Intermediates.noindex/Tomate.build/$CONFIG/Tomate.build"
-rm -rf "${INTERMEDIATES}"/assetcatalog*
-rm -f "$DERIVED_DATA/Build/Products/$CONFIG/$TARGET.app/Contents/Resources/AppIcon.icns"
-
 echo "→ Building ($CONFIG)…"
 xcodebuild \
   -project "$PROJECT" \

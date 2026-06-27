@@ -1,0 +1,70 @@
+{
+  "fill" : "system-dark",
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "linear-gradient" : [
+              "display-p3:0.39315,0.42994,0.18002,1.00000",
+              "display-p3:0.39315,0.91707,0.18002,1.00000"
+            ],
+            "orientation" : {
+              "start" : {
+                "x" : 0.5,
+                "y" : 0
+              },
+              "stop" : {
+                "x" : 0.5,
+                "y" : 0.7
+              }
+            }
+          },
+          "image-name" : "leaves-stems.png",
+          "name" : "Leaves and stems"
+        },
+        {
+          "blend-mode" : "normal",
+          "glass" : true,
+          "image-name" : "seeds.png",
+          "name" : "Seeds"
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "linear-gradient" : [
+              "display-p3:0.87059,0.00000,0.30885,1.00000",
+              "srgb:0.87059,0.00000,0.14058,1.00000"
+            ],
+            "orientation" : {
+              "start" : {
+                "x" : 0.5,
+                "y" : 0
+              },
+              "stop" : {
+                "x" : 0.49999999999999967,
+                "y" : 0.8774359600846671
+              }
+            }
+          },
+          "image-name" : "tomato.png",
+          "name" : "Tomato"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.42
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A10000010000000100000001 /* TomateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000001 /* TomateApp.swift */; };
 		A10000010000000100000003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000003 /* Assets.xcassets */; };
+		C10000010000000100000001 /* pomodoro.icon in Resources */ = {isa = PBXBuildFile; fileRef = C10000020000000100000001 /* pomodoro.icon */; };
 		A10000010000000100000004 /* SessionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000004 /* SessionRecord.swift */; };
 		A10000010000000100000005 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000005 /* SessionStore.swift */; };
 		A10000010000000100000006 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000006 /* PomodoroTimer.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		A10000020000000100000001 /* TomateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateApp.swift; sourceTree = "<group>"; };
 		A10000020000000100000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C10000020000000100000001 /* pomodoro.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = pomodoro.icon; sourceTree = "<group>"; };
 		A10000020000000100000004 /* SessionRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecord.swift; sourceTree = "<group>"; };
 		A10000020000000100000005 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		A10000020000000100000006 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				A10000050000000100000005 /* Theme */,
 				A10000050000000100000006 /* Views */,
 				A10000020000000100000003 /* Assets.xcassets */,
+				C10000020000000100000001 /* pomodoro.icon */,
 			);
 			path = Tomate;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10000010000000100000003 /* Assets.xcassets in Resources */,
+				C10000010000000100000001 /* pomodoro.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +549,7 @@
 		A100000B0000000100000003 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = pomodoro;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -572,7 +576,7 @@
 		A100000B0000000100000004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = pomodoro;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
