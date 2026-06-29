@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		A10000010000000100000001 /* TomateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000001 /* TomateApp.swift */; };
 		A10000010000000100000003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000003 /* Assets.xcassets */; };
-		C10000010000000100000001 /* pomodoro.icon in Resources */ = {isa = PBXBuildFile; fileRef = C10000020000000100000001 /* pomodoro.icon */; };
+		C10000010000000100000001 /* Tomate.icon in Resources */ = {isa = PBXBuildFile; fileRef = C10000020000000100000001 /* Tomate.icon */; };
 		A10000010000000100000004 /* SessionRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000004 /* SessionRecord.swift */; };
 		A10000010000000100000005 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000005 /* SessionStore.swift */; };
 		A10000010000000100000006 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000006 /* PomodoroTimer.swift */; };
@@ -58,7 +58,7 @@
 /* Begin PBXFileReference section */
 		A10000020000000100000001 /* TomateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomateApp.swift; sourceTree = "<group>"; };
 		A10000020000000100000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C10000020000000100000001 /* pomodoro.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = pomodoro.icon; sourceTree = "<group>"; };
+		C10000020000000100000001 /* Tomate.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Tomate.icon; sourceTree = "<group>"; };
 		A10000020000000100000004 /* SessionRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecord.swift; sourceTree = "<group>"; };
 		A10000020000000100000005 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		A10000020000000100000006 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
@@ -128,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				A10000050000000100000002 /* Tomate */,
+				C10000050000000100000001 /* Resources */,
 				B10000050000000100000001 /* TomateTests */,
 				A10000050000000100000003 /* Products */,
 			);
@@ -143,10 +144,17 @@
 				A10000050000000100000010 /* Platform */,
 				A10000050000000100000005 /* Theme */,
 				A10000050000000100000006 /* Views */,
-				A10000020000000100000003 /* Assets.xcassets */,
-				C10000020000000100000001 /* pomodoro.icon */,
 			);
 			path = Tomate;
+			sourceTree = "<group>";
+		};
+		C10000050000000100000001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A10000020000000100000003 /* Assets.xcassets */,
+				C10000020000000100000001 /* Tomate.icon */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A10000050000000100000003 /* Products */ = {
@@ -359,7 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10000010000000100000003 /* Assets.xcassets in Resources */,
-				C10000010000000100000001 /* pomodoro.icon in Resources */,
+				C10000010000000100000001 /* Tomate.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +557,7 @@
 		A100000B0000000100000003 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = pomodoro;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Tomate;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -576,7 +584,7 @@
 		A100000B0000000100000004 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = pomodoro;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Tomate;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
