@@ -22,7 +22,6 @@ struct RootView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(AppColors.background)
         .background {
-            SystemSleepMonitor(timer: timer)
             AppTerminationMonitor(timer: timer)
             LiveDisplayDriver(timer: timer) {
                 navigation.showTimer()

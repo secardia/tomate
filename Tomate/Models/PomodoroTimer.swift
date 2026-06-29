@@ -27,6 +27,12 @@ enum PomodoroPhase {
     }
 }
 
+enum AutomaticSuspendCause: Hashable {
+    case displaySleep
+    case systemSleep
+    case screenLock
+}
+
 @Observable
 final class PomodoroTimer {
     private(set) var phase: PomodoroPhase = .focus
@@ -41,8 +47,9 @@ final class PomodoroTimer {
 
     private var pendingTimeline: [TimelineInterval] = []
     private var activeSegmentStart: Date?
-    /// True when the current pause was triggered by system sleep (auto-resume on wake).
-    private var pausedForSystemSleep = false
+    /// True when the current pause was triggered by sleep, display off, or screen lock.
+    private var pausedForAutomaticSuspend = false
+    private var activeAutomaticSuspendCauses: Set<AutomaticSuspendCause> = []
 
     /// Anchor for live UI; advances only when the displayed countdown second changes while running.
     private(set) var displayNow: Date = Date()
@@ -269,17 +276,28 @@ final class PomodoroTimer {
         switchPhase(autoStart: true, startNextPhase: true, at: now)
     }
 
-    func handleSystemWillSleep(at now: Date) {
-        guard isRunning else { return }
+    func handleAutomaticSuspend(_ cause: AutomaticSuspendCause, at now: Date) {
+        let wasEmpty = activeAutomaticSuspendCauses.isEmpty
+        activeAutomaticSuspendCauses.insert(cause)
+        guard wasEmpty, isRunning else { return }
         togglePause(at: now)
-        pausedForSystemSleep = true
+        pausedForAutomaticSuspend = true
+    }
+
+    func handleAutomaticResume(_ cause: AutomaticSuspendCause, at now: Date) {
+        activeAutomaticSuspendCauses.remove(cause)
+        guard pausedForAutomaticSuspend, activeAutomaticSuspendCauses.isEmpty else { return }
+        pausedForAutomaticSuspend = false
+        guard isPaused else { return }
+        togglePause(at: now)
+    }
+
+    func handleSystemWillSleep(at now: Date) {
+        handleAutomaticSuspend(.systemSleep, at: now)
     }
 
     func handleSystemDidWake(at now: Date) {
-        guard pausedForSystemSleep else { return }
-        pausedForSystemSleep = false
-        guard isPaused else { return }
-        togglePause(at: now)
+        handleAutomaticResume(.systemSleep, at: now)
     }
 
     // MARK: - Recording

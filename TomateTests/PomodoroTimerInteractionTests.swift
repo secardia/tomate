@@ -234,6 +234,59 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertFalse(timer.isPaused)
     }
 
+    func testScreenLockPausesRunningTimer() {
+        harness.tapStartOrResume(at: t0)
+        harness.screenDidLock(at: t0.addingTimeInterval(2))
+
+        XCTAssertFalse(timer.isRunning)
+        XCTAssertTrue(timer.isPaused)
+        XCTAssertEqual(timer.remainingTime(at: t0.addingTimeInterval(10)), 3, accuracy: 0.001)
+        XCTAssertEqual(store.sessions.count, 1)
+        XCTAssertEqual(store.sessions[0].duration, 2, accuracy: 0.001)
+    }
+
+    func testScreenUnlockResumesAfterLockPause() {
+        harness.tapStartOrResume(at: t0)
+        harness.screenDidLock(at: t0.addingTimeInterval(2))
+        harness.screenDidUnlock(at: t0.addingTimeInterval(60))
+
+        XCTAssertTrue(timer.isRunning)
+        XCTAssertFalse(timer.isPaused)
+        XCTAssertEqual(timer.remainingTime(at: t0.addingTimeInterval(61)), 3, accuracy: 0.001)
+    }
+
+    func testDisplayWakeDoesNotResumeWhileScreenLocked() {
+        harness.tapStartOrResume(at: t0)
+        harness.screenDidLock(at: t0.addingTimeInterval(2))
+        harness.displayDidSleep(at: t0.addingTimeInterval(3))
+        harness.displayDidWake(at: t0.addingTimeInterval(30))
+
+        XCTAssertFalse(timer.isRunning)
+        XCTAssertTrue(timer.isPaused)
+    }
+
+    func testScreenUnlockResumesAfterDisplayWakeWhileLocked() {
+        harness.tapStartOrResume(at: t0)
+        harness.screenDidLock(at: t0.addingTimeInterval(2))
+        harness.displayDidSleep(at: t0.addingTimeInterval(3))
+        harness.displayDidWake(at: t0.addingTimeInterval(30))
+        harness.screenDidUnlock(at: t0.addingTimeInterval(60))
+
+        XCTAssertTrue(timer.isRunning)
+        XCTAssertFalse(timer.isPaused)
+        XCTAssertEqual(timer.remainingTime(at: t0.addingTimeInterval(61)), 3, accuracy: 0.001)
+    }
+
+    func testScreenUnlockDoesNotResumeManualPause() {
+        harness.tapStartOrResume(at: t0)
+        harness.tapPause(at: t0.addingTimeInterval(2))
+        harness.screenDidLock(at: t0.addingTimeInterval(3))
+        harness.screenDidUnlock(at: t0.addingTimeInterval(60))
+
+        XCTAssertFalse(timer.isRunning)
+        XCTAssertTrue(timer.isPaused)
+    }
+
     func testAppQuitResetsLikeReset() throws {
         harness.tapStartOrResume(at: t0)
         harness.tapPause(at: t0.addingTimeInterval(3))

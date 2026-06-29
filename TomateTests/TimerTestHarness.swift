@@ -51,6 +51,22 @@ struct TimerTestHarness {
         timer.handleSystemDidWake(at: date)
     }
 
+    func screenDidLock(at date: Date) {
+        timer.handleAutomaticSuspend(.screenLock, at: date)
+    }
+
+    func screenDidUnlock(at date: Date) {
+        timer.handleAutomaticResume(.screenLock, at: date)
+    }
+
+    func displayDidSleep(at date: Date) {
+        timer.handleAutomaticSuspend(.displaySleep, at: date)
+    }
+
+    func displayDidWake(at date: Date) {
+        timer.handleAutomaticResume(.displaySleep, at: date)
+    }
+
     /// Quit / Cmd+Q — same handler as the reset button.
     func appWillTerminate(at date: Date) {
         timer.reset(at: date)
