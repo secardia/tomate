@@ -2,13 +2,6 @@
 
 Native Pomodoro timer for macOS. Simple, lightweight, and fully local.
 
-<p align="center">
-  <img src="docs/screenshots/timer-running.png" width="360" alt="Timer running" />
-  <img src="docs/screenshots/stats-day.png" width="360" alt="Day stats" />
-  <img src="docs/screenshots/stats-day-live.png" width="360" alt="Day live" />
-  <img src="docs/screenshots/stats-week.png" width="360" alt="Week stats" />
-</p>
-
 ## Features
 
 - **Timer:** Focus and break cycles. Start, pause, skip, or reset anytime.
@@ -22,25 +15,34 @@ Native Pomodoro timer for macOS. Simple, lightweight, and fully local.
 ## Requirements
 
 - macOS 14+
-- [Xcode](https://developer.apple.com/xcode/) 26+
 
-## Quick start
+## Install
 
-**Run in development** (Debug build, opens the app):
+1. [Download Tomate](https://github.com/secardia/tomate/releases/latest/download/Tomate.zip)
+2. Unzip, then drag `Tomate.app` to Applications
+3. First launch: right-click → **Open** (macOS security warning without Apple notarization)
+
+**Settings:** Tomate menu → Settings, or `⌘ ,`
+
+## Development
+
+Requires [Xcode](https://developer.apple.com/xcode/) 26+.
+
+**Run** (Debug build):
 
 ```bash
 ./debug.sh
 ```
 
-**Install to** `/Applications` (Release build):
+**Build, zip, and install** to `/Applications` (Release):
 
 ```bash
 ./install.sh
 ```
 
-To install elsewhere: `INSTALL_DIR=~/Applications ./install.sh`
+Elsewhere: `INSTALL_DIR=./tmp ./install.sh`
 
-**Settings**: Tomate menu → Settings, or `⌘ ,`
+The zip for [GitHub Releases](https://github.com/secardia/tomate/releases) is written to `build/Build/Products/Release/Tomate.zip`.
 
 ## Tests
 
@@ -65,7 +67,7 @@ Tomate/
 TomateTests/      Unit tests
 Resources/        App icon and asset catalog
 debug.sh                        Debug build + launch
-install.sh                      Release build + install to Applications
+install.sh                      Release build, zip, and install to Applications
 docs/generate-screenshots.sh    Regenerate docs/screenshots PNGs
 ```
 

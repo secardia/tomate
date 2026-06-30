@@ -31,10 +31,18 @@ xcodebuild \
   DEVELOPMENT_TEAM=""
 
 APP="$DERIVED_DATA/Build/Products/$CONFIG/$TARGET.app"
+ZIP="$DERIVED_DATA/Build/Products/$CONFIG/$TARGET.zip"
 if [[ ! -d "$APP" ]]; then
   echo "error: binary not found: $APP" >&2
   exit 1
 fi
+
+echo "→ Packaging ${TARGET}.zip…"
+rm -f "$ZIP"
+(
+  cd "$(dirname "$APP")"
+  ditto -c -k --sequesterRsrc --keepParent "$TARGET.app" "$ZIP"
+)
 
 echo "→ Installing to ${DEST}…"
 if [[ -d "$DEST" ]]; then
@@ -46,4 +54,5 @@ touch "$DEST"
 
 echo ""
 echo "✓ Tomate installed to $DEST"
+echo "✓ $ZIP"
 echo "  Drag the icon to the Dock to pin it."
