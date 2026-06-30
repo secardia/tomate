@@ -5,15 +5,9 @@ struct WeekStatsView: View {
     @Bindable var timer: PomodoroTimer
     @Binding var selectedDate: Date
 
+    @Environment(\.statsToday) private var statsToday
+
     private var calendar: Calendar { StatsCalendar.stats }
-
-    private var startOfToday: Date {
-        calendar.startOfDay(for: Date())
-    }
-
-    private func isPastOrToday(_ date: Date) -> Bool {
-        calendar.startOfDay(for: date) <= startOfToday
-    }
 
     var body: some View {
         let summary = StatsLiveSnapshot.weekSummary(
@@ -31,12 +25,13 @@ struct WeekStatsView: View {
                         .frame(width: 1)
                         .padding(.top, 12)
                 }
+                let style = WeekDayStyle.make(date: day.date, today: statsToday, calendar: calendar)
                 WeekDayColumn(
                     focusCount: day.focusCount,
                     restCount: day.restCount,
                     dayLabel: StatsDateFormatter.shortWeekday(day.date),
-                    isToday: calendar.isDateInToday(day.date),
-                    isPastOrToday: isPastOrToday(day.date)
+                    isToday: style.isToday,
+                    isPastOrToday: style.isPastOrToday
                 )
             }
         }

@@ -63,7 +63,14 @@
 		B10000010000000100000006 /* SessionStoreWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000006 /* SessionStoreWindowTests.swift */; };
 		B10000010000000100000007 /* TimelineDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000007 /* TimelineDisplayTests.swift */; };
 		B10000010000000100000008 /* TimelineTimeLabelLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000008 /* TimelineTimeLabelLayoutTests.swift */; };
+		B10000010000000100000009 /* ScreenshotFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000009 /* ScreenshotFixtures.swift */; };
+		B10000010000000100000010 /* ScreenshotRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000010 /* ScreenshotRenderer.swift */; };
+		B10000010000000100000011 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000011 /* ScreenshotTests.swift */; };
+		C20000010000000100000001 /* AppScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20000020000000100000001 /* AppScreenshotView.swift */; };
 		B10000010000000100000003 /* TimerTestHarness.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000003 /* TimerTestHarness.swift */; };
+		D10000010000000100000001 /* WeekDayStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000020000000100000001 /* WeekDayStyle.swift */; };
+		D10000010000000100000002 /* StatsTodayEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10000020000000100000002 /* StatsTodayEnvironment.swift */; };
+		B10000010000000100000012 /* WeekDayStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000012 /* WeekDayStyleTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +131,13 @@
 		B10000020000000100000006 /* SessionStoreWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreWindowTests.swift; sourceTree = "<group>"; };
 		B10000020000000100000007 /* TimelineDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDisplayTests.swift; sourceTree = "<group>"; };
 		B10000020000000100000008 /* TimelineTimeLabelLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTimeLabelLayoutTests.swift; sourceTree = "<group>"; };
+		B10000020000000100000009 /* ScreenshotFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotFixtures.swift; sourceTree = "<group>"; };
+		B10000020000000100000010 /* ScreenshotRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotRenderer.swift; sourceTree = "<group>"; };
+		B10000020000000100000011 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
+		C20000020000000100000001 /* AppScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreenshotView.swift; sourceTree = "<group>"; };
+		D10000020000000100000001 /* WeekDayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayStyle.swift; sourceTree = "<group>"; };
+		D10000020000000100000002 /* StatsTodayEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTodayEnvironment.swift; sourceTree = "<group>"; };
+		B10000020000000100000012 /* WeekDayStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayStyleTests.swift; sourceTree = "<group>"; };
 		B10000020000000100000003 /* TimerTestHarness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestHarness.swift; sourceTree = "<group>"; };
 		B10000030000000100000001 /* TomateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TomateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -205,6 +219,7 @@
 				A10000020000000100000028 /* TimelineInterval.swift */,
 				A10000020000000100000037 /* StatsNavigationModel.swift */,
 				A10000020000000100000027 /* StatsCalendar.swift */,
+				D10000020000000100000001 /* WeekDayStyle.swift */,
 				A10000020000000100000029 /* StatsDateFormatter.swift */,
 			);
 			path = Models;
@@ -257,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				A10000020000000100000008 /* RootView.swift */,
+				D10000020000000100000002 /* StatsTodayEnvironment.swift */,
 				A10000020000000100000009 /* TimerView.swift */,
 				A10000020000000100000038 /* SettingsView.swift */,
 				A10000020000000100000010 /* DayStatsView.swift */,
@@ -296,8 +312,21 @@
 				B10000020000000100000006 /* SessionStoreWindowTests.swift */,
 				B10000020000000100000007 /* TimelineDisplayTests.swift */,
 				B10000020000000100000008 /* TimelineTimeLabelLayoutTests.swift */,
+				B10000020000000100000012 /* WeekDayStyleTests.swift */,
+				B10000050000000100000002 /* Screenshots */,
 			);
 			path = TomateTests;
+			sourceTree = "<group>";
+		};
+		B10000050000000100000002 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				C20000020000000100000001 /* AppScreenshotView.swift */,
+				B10000020000000100000009 /* ScreenshotFixtures.swift */,
+				B10000020000000100000010 /* ScreenshotRenderer.swift */,
+				B10000020000000100000011 /* ScreenshotTests.swift */,
+			);
+			path = Screenshots;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,6 +448,8 @@
 				A10000010000000100000028 /* TimelineInterval.swift in Sources */,
 				A10000010000000100000007 /* AppColors.swift in Sources */,
 				A10000010000000100000052 /* FocusRestPalette.swift in Sources */,
+				D10000010000000100000001 /* WeekDayStyle.swift in Sources */,
+				D10000010000000100000002 /* StatsTodayEnvironment.swift in Sources */,
 				A10000010000000100000008 /* RootView.swift in Sources */,
 				A10000010000000100000009 /* TimerView.swift in Sources */,
 				A10000010000000100000010 /* DayStatsView.swift in Sources */,
@@ -474,6 +505,11 @@
 				B10000010000000100000006 /* SessionStoreWindowTests.swift in Sources */,
 				B10000010000000100000007 /* TimelineDisplayTests.swift in Sources */,
 				B10000010000000100000008 /* TimelineTimeLabelLayoutTests.swift in Sources */,
+				B10000010000000100000012 /* WeekDayStyleTests.swift in Sources */,
+				C20000010000000100000001 /* AppScreenshotView.swift in Sources */,
+				B10000010000000100000009 /* ScreenshotFixtures.swift in Sources */,
+				B10000010000000100000010 /* ScreenshotRenderer.swift in Sources */,
+				B10000010000000100000011 /* ScreenshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
