@@ -284,19 +284,19 @@ final class PomodoroTimer {
         pausedForAutomaticSuspend = true
     }
 
-    func handleAutomaticResume(_ cause: AutomaticSuspendCause, at now: Date) {
+    func handleAutomaticResume(_ cause: AutomaticSuspendCause, at now: Date) -> Bool {
         activeAutomaticSuspendCauses.remove(cause)
-        guard pausedForAutomaticSuspend, activeAutomaticSuspendCauses.isEmpty else { return }
+        guard pausedForAutomaticSuspend, activeAutomaticSuspendCauses.isEmpty else { return false }
         pausedForAutomaticSuspend = false
-        guard isPaused else { return }
-        togglePause(at: now)
+        return isPaused
     }
 
     func handleSystemWillSleep(at now: Date) {
         handleAutomaticSuspend(.systemSleep, at: now)
     }
 
-    func handleSystemDidWake(at now: Date) {
+    @discardableResult
+    func handleSystemDidWake(at now: Date) -> Bool {
         handleAutomaticResume(.systemSleep, at: now)
     }
 

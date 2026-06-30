@@ -206,13 +206,13 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertEqual(store.sessions[0].duration, 2, accuracy: 0.001)
     }
 
-    func testSystemWakeResumesAfterSleepPause() {
+    func testSystemWakeDoesNotResumeAfterSleepPause() {
         harness.tapStartOrResume(at: t0)
         harness.systemWillSleep(at: t0.addingTimeInterval(2))
         harness.systemDidWake(at: t0.addingTimeInterval(60))
 
-        XCTAssertTrue(timer.isRunning)
-        XCTAssertFalse(timer.isPaused)
+        XCTAssertFalse(timer.isRunning)
+        XCTAssertTrue(timer.isPaused)
         XCTAssertEqual(timer.remainingTime(at: t0.addingTimeInterval(61)), 3, accuracy: 0.001)
     }
 
@@ -245,13 +245,13 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertEqual(store.sessions[0].duration, 2, accuracy: 0.001)
     }
 
-    func testScreenUnlockResumesAfterLockPause() {
+    func testScreenUnlockDoesNotResumeAfterLockPause() {
         harness.tapStartOrResume(at: t0)
         harness.screenDidLock(at: t0.addingTimeInterval(2))
         harness.screenDidUnlock(at: t0.addingTimeInterval(60))
 
-        XCTAssertTrue(timer.isRunning)
-        XCTAssertFalse(timer.isPaused)
+        XCTAssertFalse(timer.isRunning)
+        XCTAssertTrue(timer.isPaused)
         XCTAssertEqual(timer.remainingTime(at: t0.addingTimeInterval(61)), 3, accuracy: 0.001)
     }
 
@@ -265,16 +265,27 @@ final class PomodoroTimerInteractionTests: XCTestCase {
         XCTAssertTrue(timer.isPaused)
     }
 
-    func testScreenUnlockResumesAfterDisplayWakeWhileLocked() {
+    func testScreenUnlockDoesNotResumeAfterDisplayWakeWhileLocked() {
         harness.tapStartOrResume(at: t0)
         harness.screenDidLock(at: t0.addingTimeInterval(2))
         harness.displayDidSleep(at: t0.addingTimeInterval(3))
         harness.displayDidWake(at: t0.addingTimeInterval(30))
         harness.screenDidUnlock(at: t0.addingTimeInterval(60))
 
-        XCTAssertTrue(timer.isRunning)
-        XCTAssertFalse(timer.isPaused)
+        XCTAssertFalse(timer.isRunning)
+        XCTAssertTrue(timer.isPaused)
         XCTAssertEqual(timer.remainingTime(at: t0.addingTimeInterval(61)), 3, accuracy: 0.001)
+    }
+
+    func testDisplayWakeDoesNotResumeAfterScreenUnlockLeavesPaused() {
+        harness.tapStartOrResume(at: t0)
+        harness.screenDidLock(at: t0.addingTimeInterval(2))
+        harness.screenDidUnlock(at: t0.addingTimeInterval(60))
+        harness.displayDidSleep(at: t0.addingTimeInterval(61))
+        harness.displayDidWake(at: t0.addingTimeInterval(90))
+
+        XCTAssertFalse(timer.isRunning)
+        XCTAssertTrue(timer.isPaused)
     }
 
     func testScreenUnlockDoesNotResumeManualPause() {
@@ -285,6 +296,17 @@ final class PomodoroTimerInteractionTests: XCTestCase {
 
         XCTAssertFalse(timer.isRunning)
         XCTAssertTrue(timer.isPaused)
+    }
+
+    func testAutomaticResumeSignalsForegroundOnlyAfterAutoPause() {
+        harness.tapStartOrResume(at: t0)
+        harness.systemWillSleep(at: t0.addingTimeInterval(2))
+        XCTAssertTrue(timer.handleAutomaticResume(.systemSleep, at: t0.addingTimeInterval(60)))
+
+        harness.tapStartOrResume(at: t0.addingTimeInterval(70))
+        harness.tapPause(at: t0.addingTimeInterval(72))
+        harness.systemWillSleep(at: t0.addingTimeInterval(73))
+        XCTAssertFalse(timer.handleAutomaticResume(.systemSleep, at: t0.addingTimeInterval(80)))
     }
 
     func testAppQuitResetsLikeReset() throws {

@@ -59,7 +59,7 @@ final class SystemSleepController {
             workspaceObservers.append(
                 center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
                     MainActor.assumeIsolated {
-                        self?.timer.handleAutomaticResume(cause, at: Date())
+                        self?.handleAutomaticResume(cause)
                     }
                 }
             )
@@ -68,31 +68,27 @@ final class SystemSleepController {
 
     private func registerDistributedObservers() {
         let center = DistributedNotificationCenter.default()
-        let suspendEvents: [(Notification.Name, AutomaticSuspendCause)] = [
-            (.screenIsLocked, .screenLock),
-        ]
-        let resumeEvents: [(Notification.Name, AutomaticSuspendCause)] = [
-            (.screenIsUnlocked, .screenLock),
-        ]
 
-        for (name, cause) in suspendEvents {
-            distributedObservers.append(
-                center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
-                    MainActor.assumeIsolated {
-                        self?.timer.handleAutomaticSuspend(cause, at: Date())
-                    }
+        distributedObservers.append(
+            center.addObserver(forName: .screenIsLocked, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    self?.timer.handleAutomaticSuspend(.screenLock, at: Date())
                 }
-            )
-        }
+            }
+        )
 
-        for (name, cause) in resumeEvents {
-            distributedObservers.append(
-                center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
-                    MainActor.assumeIsolated {
-                        self?.timer.handleAutomaticResume(cause, at: Date())
-                    }
+        distributedObservers.append(
+            center.addObserver(forName: .screenIsUnlocked, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated {
+                    self?.handleAutomaticResume(.screenLock)
                 }
-            )
+            }
+        )
+    }
+
+    private func handleAutomaticResume(_ cause: AutomaticSuspendCause) {
+        if timer.handleAutomaticResume(cause, at: Date()) {
+            AppWindowController.activate()
         }
     }
 }
