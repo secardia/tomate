@@ -40,7 +40,7 @@ struct DateNavigationBar: View {
     }
 }
 
-private struct DateNavCell: View {
+private struct DateNavCell<Label: View>: View {
     enum Position {
         case leading, middle, trailing
     }
@@ -48,29 +48,18 @@ private struct DateNavCell: View {
     let position: Position
     let size: CGSize
     let action: () -> Void
-    let label: AnyView
-
-    @State private var isPressed = false
-
-    init(
-        position: Position,
-        size: CGSize,
-        action: @escaping () -> Void,
-        @ViewBuilder label: () -> some View
-    ) {
-        self.position = position
-        self.size = size
-        self.action = action
-        self.label = AnyView(label())
-    }
+    @ViewBuilder let label: () -> Label
 
     var body: some View {
-        cellShape
-            .fill(isPressed ? AppColors.controlPressed : AppColors.controlFill)
-            .frame(width: size.width, height: size.height)
-            .overlay { label }
-            .contentShape(cellShape)
-            .gesture(pressGesture)
+        PressableCell(
+            size: size,
+            shape: cellShape,
+            fill: AppColors.controlFill,
+            pressedFill: AppColors.controlPressed,
+            isInteractionDisabled: false,
+            action: action,
+            label: label
+        )
     }
 
     private var cellShape: UnevenRoundedRectangle {
@@ -101,14 +90,5 @@ private struct DateNavCell: View {
                 style: .continuous
             )
         }
-    }
-
-    private var pressGesture: some Gesture {
-        DragGesture(minimumDistance: 0)
-            .onChanged { _ in isPressed = true }
-            .onEnded { _ in
-                isPressed = false
-                action()
-            }
     }
 }

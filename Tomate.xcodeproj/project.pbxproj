@@ -43,6 +43,15 @@
 		A10000010000000100000033 /* SessionPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000033 /* SessionPersistence.swift */; };
 		A10000010000000100000034 /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000034 /* TimerConfiguration.swift */; };
 		A10000010000000100000035 /* TimelineDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000035 /* TimelineDisplay.swift */; };
+		A10000010000000100000046 /* TimelineTimeLabelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000046 /* TimelineTimeLabelLayout.swift */; };
+		A10000010000000100000047 /* DayTimelineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000047 /* DayTimelineLayout.swift */; };
+		A10000010000000100000048 /* DayTimelineLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000048 /* DayTimelineLabels.swift */; };
+		A10000010000000100000049 /* DayTimelineChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000049 /* DayTimelineChrome.swift */; };
+		A10000010000000100000050 /* ProgressBarTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000050 /* ProgressBarTrack.swift */; };
+		A10000010000000100000051 /* TimerProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000051 /* TimerProgressBar.swift */; };
+		A10000010000000100000052 /* FocusRestPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000052 /* FocusRestPalette.swift */; };
+		A10000010000000100000053 /* PressableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000053 /* PressableCell.swift */; };
+		A10000010000000100000054 /* StatsLiveSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000054 /* StatsLiveSnapshot.swift */; };
 		A10000010000000100000036 /* AppNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000036 /* AppNavigation.swift */; };
 		A10000010000000100000037 /* StatsNavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000037 /* StatsNavigationModel.swift */; };
 		A10000010000000100000042 /* SessionDataWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000020000000100000042 /* SessionDataWindow.swift */; };
@@ -52,6 +61,8 @@
 		B10000010000000100000005 /* TimelineScenarioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000005 /* TimelineScenarioTests.swift */; };
 		B10000010000000100000002 /* AppNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000002 /* AppNavigationTests.swift */; };
 		B10000010000000100000006 /* SessionStoreWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000006 /* SessionStoreWindowTests.swift */; };
+		B10000010000000100000007 /* TimelineDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000007 /* TimelineDisplayTests.swift */; };
+		B10000010000000100000008 /* TimelineTimeLabelLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000008 /* TimelineTimeLabelLayoutTests.swift */; };
 		B10000010000000100000003 /* TimerTestHarness.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000020000000100000003 /* TimerTestHarness.swift */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +103,15 @@
 		A10000020000000100000033 /* SessionPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersistence.swift; sourceTree = "<group>"; };
 		A10000020000000100000034 /* TimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfiguration.swift; sourceTree = "<group>"; };
 		A10000020000000100000035 /* TimelineDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDisplay.swift; sourceTree = "<group>"; };
+		A10000020000000100000046 /* TimelineTimeLabelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTimeLabelLayout.swift; sourceTree = "<group>"; };
+		A10000020000000100000047 /* DayTimelineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTimelineLayout.swift; sourceTree = "<group>"; };
+		A10000020000000100000048 /* DayTimelineLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTimelineLabels.swift; sourceTree = "<group>"; };
+		A10000020000000100000049 /* DayTimelineChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTimelineChrome.swift; sourceTree = "<group>"; };
+		A10000020000000100000050 /* ProgressBarTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarTrack.swift; sourceTree = "<group>"; };
+		A10000020000000100000051 /* TimerProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerProgressBar.swift; sourceTree = "<group>"; };
+		A10000020000000100000052 /* FocusRestPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRestPalette.swift; sourceTree = "<group>"; };
+		A10000020000000100000053 /* PressableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressableCell.swift; sourceTree = "<group>"; };
+		A10000020000000100000054 /* StatsLiveSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsLiveSnapshot.swift; sourceTree = "<group>"; };
 		A10000020000000100000036 /* AppNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigation.swift; sourceTree = "<group>"; };
 		A10000020000000100000037 /* StatsNavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsNavigationModel.swift; sourceTree = "<group>"; };
 		A10000020000000100000042 /* SessionDataWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDataWindow.swift; sourceTree = "<group>"; };
@@ -102,6 +122,8 @@
 		B10000020000000100000005 /* TimelineScenarioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScenarioTests.swift; sourceTree = "<group>"; };
 		B10000020000000100000002 /* AppNavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationTests.swift; sourceTree = "<group>"; };
 		B10000020000000100000006 /* SessionStoreWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreWindowTests.swift; sourceTree = "<group>"; };
+		B10000020000000100000007 /* TimelineDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDisplayTests.swift; sourceTree = "<group>"; };
+		B10000020000000100000008 /* TimelineTimeLabelLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTimeLabelLayoutTests.swift; sourceTree = "<group>"; };
 		B10000020000000100000003 /* TimerTestHarness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTestHarness.swift; sourceTree = "<group>"; };
 		B10000030000000100000001 /* TomateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TomateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -177,6 +199,9 @@
 				A10000020000000100000032 /* SessionRecording.swift */,
 				A10000020000000100000034 /* TimerConfiguration.swift */,
 				A10000020000000100000035 /* TimelineDisplay.swift */,
+				A10000020000000100000046 /* TimelineTimeLabelLayout.swift */,
+				A10000020000000100000047 /* DayTimelineLayout.swift */,
+				A10000020000000100000054 /* StatsLiveSnapshot.swift */,
 				A10000020000000100000028 /* TimelineInterval.swift */,
 				A10000020000000100000037 /* StatsNavigationModel.swift */,
 				A10000020000000100000027 /* StatsCalendar.swift */,
@@ -200,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				A10000020000000100000007 /* AppColors.swift */,
+				A10000020000000100000052 /* FocusRestPalette.swift */,
 				A10000020000000100000030 /* AppStrings.swift */,
 				A10000020000000100000031 /* TimerRefreshMetrics.swift */,
 			);
@@ -249,6 +275,11 @@
 				A10000020000000100000022 /* DateNavigationBar.swift */,
 				A10000020000000100000021 /* DayStatColumn.swift */,
 				A10000020000000100000015 /* DayTimelineBar.swift */,
+				A10000020000000100000048 /* DayTimelineLabels.swift */,
+				A10000020000000100000049 /* DayTimelineChrome.swift */,
+				A10000020000000100000050 /* ProgressBarTrack.swift */,
+				A10000020000000100000051 /* TimerProgressBar.swift */,
+				A10000020000000100000053 /* PressableCell.swift */,
 				A10000020000000100000016 /* WeekDayColumn.swift */,
 			);
 			path = Components;
@@ -263,6 +294,8 @@
 				B10000020000000100000001 /* PomodoroTimerInteractionTests.swift */,
 				B10000020000000100000002 /* AppNavigationTests.swift */,
 				B10000020000000100000006 /* SessionStoreWindowTests.swift */,
+				B10000020000000100000007 /* TimelineDisplayTests.swift */,
+				B10000020000000100000008 /* TimelineTimeLabelLayoutTests.swift */,
 			);
 			path = TomateTests;
 			sourceTree = "<group>";
@@ -385,6 +418,7 @@
 				A10000010000000100000027 /* StatsCalendar.swift in Sources */,
 				A10000010000000100000028 /* TimelineInterval.swift in Sources */,
 				A10000010000000100000007 /* AppColors.swift in Sources */,
+				A10000010000000100000052 /* FocusRestPalette.swift in Sources */,
 				A10000010000000100000008 /* RootView.swift in Sources */,
 				A10000010000000100000009 /* TimerView.swift in Sources */,
 				A10000010000000100000010 /* DayStatsView.swift in Sources */,
@@ -392,6 +426,11 @@
 				A10000010000000100000012 /* TopToolbar.swift in Sources */,
 				A10000010000000100000017 /* SegmentedControl.swift in Sources */,
 				A10000010000000100000015 /* DayTimelineBar.swift in Sources */,
+				A10000010000000100000048 /* DayTimelineLabels.swift in Sources */,
+				A10000010000000100000049 /* DayTimelineChrome.swift in Sources */,
+				A10000010000000100000050 /* ProgressBarTrack.swift in Sources */,
+				A10000010000000100000051 /* TimerProgressBar.swift in Sources */,
+				A10000010000000100000053 /* PressableCell.swift in Sources */,
 				A10000010000000100000016 /* WeekDayColumn.swift in Sources */,
 				A10000010000000100000018 /* WindowConfigurator.swift in Sources */,
 				A10000010000000100000040 /* SystemSleepMonitor.swift in Sources */,
@@ -412,6 +451,9 @@
 				A10000010000000100000033 /* SessionPersistence.swift in Sources */,
 				A10000010000000100000034 /* TimerConfiguration.swift in Sources */,
 				A10000010000000100000035 /* TimelineDisplay.swift in Sources */,
+				A10000010000000100000046 /* TimelineTimeLabelLayout.swift in Sources */,
+				A10000010000000100000047 /* DayTimelineLayout.swift in Sources */,
+				A10000010000000100000054 /* StatsLiveSnapshot.swift in Sources */,
 				A10000010000000100000039 /* TimelineIntervalEntity.swift in Sources */,
 				A10000010000000100000036 /* AppNavigation.swift in Sources */,
 				A10000010000000100000037 /* StatsNavigationModel.swift in Sources */,
@@ -430,6 +472,8 @@
 				B10000010000000100000001 /* PomodoroTimerInteractionTests.swift in Sources */,
 				B10000010000000100000002 /* AppNavigationTests.swift in Sources */,
 				B10000010000000100000006 /* SessionStoreWindowTests.swift in Sources */,
+				B10000010000000100000007 /* TimelineDisplayTests.swift in Sources */,
+				B10000010000000100000008 /* TimelineTimeLabelLayoutTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

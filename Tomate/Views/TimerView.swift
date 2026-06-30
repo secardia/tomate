@@ -43,20 +43,6 @@ struct TimerView: View {
     }
 }
 
-struct TimerBottomChrome: View {
-    @Bindable var timer: PomodoroTimer
-
-    var body: some View {
-        TimerProgressBar(
-            timer: timer,
-            now: timer.displayNow
-        )
-        .frame(height: AppLayoutMetrics.progressBarHeight)
-        .frame(maxWidth: .infinity)
-        .background(AppColors.background)
-    }
-}
-
 private struct TimerControlButtons: View {
     @Bindable var timer: PomodoroTimer
 
@@ -115,22 +101,6 @@ private struct TimerClockLabel: View {
 
     private func formatTime(_ totalSeconds: Int) -> String {
         String(format: "%02d:%02d", totalSeconds / 60, totalSeconds % 60)
-    }
-}
-
-private struct TimerProgressBar: View {
-    @Bindable var timer: PomodoroTimer
-    let now: Date
-
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                Rectangle().fill(timer.phase.accentMutedColor)
-                Rectangle()
-                    .fill(timer.phase.accentColor)
-                    .frame(width: geometry.size.width * timer.progress(at: now))
-            }
-        }
     }
 }
 

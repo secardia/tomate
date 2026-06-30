@@ -29,22 +29,6 @@ enum ControlCorners {
     static let standalone: CGFloat = 10
 }
 
-extension PomodoroPhase {
-    var accentColor: Color {
-        switch self {
-        case .focus: AppColors.focus
-        case .rest: AppColors.rest
-        }
-    }
-
-    var accentMutedColor: Color {
-        switch self {
-        case .focus: AppColors.focusMuted
-        case .rest: AppColors.restMuted
-        }
-    }
-}
-
 enum AppLayoutMetrics {
     /// Horizontal content margin.
     static let contentMargin: CGFloat = 16

@@ -16,20 +16,14 @@ struct WeekStatsView: View {
     }
 
     var body: some View {
-        weekColumns(at: timer.timelineDisplayDate(at: timer.displayNow))
-    }
-
-    private func weekColumns(at now: Date) -> some View {
-        let live = timer.liveActiveDuration(at: now, selectedDate: now, calendar: calendar)
-        let summary = store.weekSummary(
-            for: selectedDate,
-            calendar: calendar,
-            liveForDate: now,
-            liveFocusDuration: live.focus,
-            liveRestDuration: live.rest
+        let summary = StatsLiveSnapshot.weekSummary(
+            store: store,
+            timer: timer,
+            selectedDate: selectedDate,
+            calendar: calendar
         )
 
-        return HStack(spacing: 0) {
+        HStack(spacing: 0) {
             ForEach(Array(summary.days.enumerated()), id: \.offset) { index, day in
                 if index > 0 {
                     Rectangle()

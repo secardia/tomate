@@ -17,8 +17,6 @@ struct SegmentedControlCell: View {
     let action: () -> Void
     let label: AnyView
 
-    @State private var isPressed = false
-
     init(
         size: CGSize,
         isActive: Bool,
@@ -32,31 +30,15 @@ struct SegmentedControlCell: View {
     }
 
     var body: some View {
-        RoundedRectangle(cornerRadius: ControlCorners.inner, style: .continuous)
-            .fill(backgroundColor)
-            .frame(width: size.width, height: size.height)
-            .overlay { label }
-            .contentShape(Rectangle())
-            .gesture(pressGesture)
-    }
-
-    private var backgroundColor: Color {
-        if isActive { return AppColors.segmentSelected }
-        if isPressed { return AppColors.segmentPressed }
-        return AppColors.surface
-    }
-
-    private var pressGesture: some Gesture {
-        DragGesture(minimumDistance: 0)
-            .onChanged { _ in
-                guard !isActive else { return }
-                isPressed = true
-            }
-            .onEnded { _ in
-                guard !isActive else { return }
-                isPressed = false
-                action()
-            }
+        PressableCell(
+            size: size,
+            shape: RoundedRectangle(cornerRadius: ControlCorners.inner, style: .continuous),
+            fill: isActive ? AppColors.segmentSelected : AppColors.surface,
+            pressedFill: AppColors.segmentPressed,
+            isInteractionDisabled: isActive,
+            action: action,
+            label: { label }
+        )
     }
 }
 

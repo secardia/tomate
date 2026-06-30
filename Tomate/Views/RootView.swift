@@ -36,7 +36,7 @@ struct RootView: View {
             case .timer:
                 TimerBottomChrome(timer: timer)
             case .stats where navigation.period == .day:
-                DayTimelineBar(
+                DayTimelineChrome(
                     persistedTimeline: dayTimelineForSelectedDate,
                     selectedDate: navigation.selectedDate,
                     timer: timer
@@ -69,7 +69,14 @@ struct RootView: View {
     }
 
     private var topBar: some View {
-        VStack(spacing: 0) {
+        EdgeChrome(
+            padding: EdgeInsets(
+                top: AppLayoutMetrics.topBarMargin,
+                leading: 0,
+                bottom: 0,
+                trailing: 0
+            )
+        ) {
             HStack {
                 if navigation.screen == .stats {
                     statsPeriodTabs
@@ -90,8 +97,6 @@ struct RootView: View {
             .padding(.horizontal, AppLayoutMetrics.topBarMargin)
             .frame(minHeight: AppLayoutMetrics.topBarContentHeight, alignment: .top)
         }
-        .padding(.top, AppLayoutMetrics.topBarMargin)
-        .background(AppColors.background)
     }
 
     @ViewBuilder
@@ -124,7 +129,7 @@ struct RootView: View {
             if navigation.period == .week {
                 Text(DurationFormatter.clockDuration(weekFocusTotal(at: timer.displayNow)))
                     .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundStyle(AppColors.focus)
+                    .foregroundStyle(SessionType.focus.accentColor)
                     .monospacedDigit()
             }
         }
@@ -155,8 +160,13 @@ struct RootView: View {
     }
 
     private func weekFocusTotal(at now: Date) -> TimeInterval {
-        let reference = timer.timelineDisplayDate(at: now)
-        let live = timer.liveActiveDuration(at: reference, selectedDate: reference, calendar: calendar)
+        let reference = StatsLiveSnapshot.referenceDate(timer: timer, at: now)
+        let live = StatsLiveSnapshot.liveDurations(
+            timer: timer,
+            at: reference,
+            selectedDate: reference,
+            calendar: calendar
+        )
         return store.weekSummary(
             for: navigation.selectedDate,
             calendar: calendar,

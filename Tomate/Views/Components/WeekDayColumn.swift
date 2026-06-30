@@ -15,13 +15,13 @@ struct WeekDayColumn: View {
                 if focusCount > 0 {
                     Text("\(focusCount)")
                         .font(.system(size: 22, weight: .medium, design: .rounded))
-                        .foregroundStyle(AppColors.focus)
+                        .foregroundStyle(SessionType.focus.accentColor)
                 }
 
                 if restCount > 0 {
                     Text("\(restCount)")
                         .font(.system(size: 22, weight: .medium, design: .rounded))
-                        .foregroundStyle(AppColors.rest)
+                        .foregroundStyle(SessionType.rest.accentColor)
                 }
             }
 
