@@ -8,14 +8,12 @@ struct SettingsView: View {
     @State private var focusMinutes: Int
     @State private var restMinutes: Int
     @State private var autoStartBreaks: Bool
-    @State private var minimumPauseGapMinutes: Int
 
     init(timer: PomodoroTimer) {
         self.timer = timer
         _focusMinutes = State(initialValue: timer.configuration.focusDurationSeconds / 60)
         _restMinutes = State(initialValue: timer.configuration.restDurationSeconds / 60)
         _autoStartBreaks = State(initialValue: timer.configuration.autoStartBreaks)
-        _minimumPauseGapMinutes = State(initialValue: AppPreferences.minimumPauseGapSeconds / 60)
     }
 
     var body: some View {
@@ -53,15 +51,6 @@ struct SettingsView: View {
                     .onChange(of: autoStartBreaks) { _, newValue in
                         applyConfiguration(autoStartBreaks: newValue)
                     }
-            }
-
-            Section {
-                Stepper(value: $minimumPauseGapMinutes, in: 5...120) {
-                    Text("\(AppStrings.Settings.minimumPauseGap): \(minimumPauseGapMinutes) min")
-                }
-                .onChange(of: minimumPauseGapMinutes) { _, newValue in
-                    AppPreferences.minimumPauseGapSeconds = newValue * 60
-                }
             }
         }
         .formStyle(.grouped)

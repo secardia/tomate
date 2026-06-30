@@ -34,7 +34,6 @@ enum AppStrings {
         static var focusDuration: String { l.settingsFocusDuration }
         static var restDuration: String { l.settingsRestDuration }
         static var autoStartBreaks: String { l.settingsAutoStartBreaks }
-        static var minimumPauseGap: String { l.settingsMinimumPauseGap }
     }
 }
 
@@ -57,7 +56,6 @@ private struct LocalizedStrings {
     let settingsFocusDuration: String
     let settingsRestDuration: String
     let settingsAutoStartBreaks: String
-    let settingsMinimumPauseGap: String
 
     static let english = LocalizedStrings(
         phaseFocus: "Focus",
@@ -77,8 +75,7 @@ private struct LocalizedStrings {
         settingsFirstWeekday: "First day of week",
         settingsFocusDuration: "Focus duration",
         settingsRestDuration: "Break duration",
-        settingsAutoStartBreaks: "Start breaks automatically",
-        settingsMinimumPauseGap: "Minimum break (timeline)"
+        settingsAutoStartBreaks: "Start breaks automatically"
     )
 
     static let french = LocalizedStrings(
@@ -99,7 +96,6 @@ private struct LocalizedStrings {
         settingsFirstWeekday: "Premier jour de la semaine",
         settingsFocusDuration: "Durée de concentration",
         settingsRestDuration: "Durée de pause",
-        settingsAutoStartBreaks: "Démarrer les pauses automatiquement",
-        settingsMinimumPauseGap: "Pause minimale (timeline)"
+        settingsAutoStartBreaks: "Démarrer les pauses automatiquement"
     )
 }

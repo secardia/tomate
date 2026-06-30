@@ -14,7 +14,6 @@ enum AppPreferences {
         static let focusDurationSeconds = "preferences.timer.focusDurationSeconds"
         static let restDurationSeconds = "preferences.timer.restDurationSeconds"
         static let autoStartBreaks = "preferences.timer.autoStartBreaks"
-        static let minimumPauseGapSeconds = "preferences.timeline.minimumPauseGapSeconds"
 
         static let windowFrameX = "preferences.window.frame.x"
         static let windowFrameY = "preferences.window.frame.y"
@@ -26,7 +25,6 @@ enum AppPreferences {
         static let focusDurationSeconds = 25 * 60
         static let restDurationSeconds = 5 * 60
         static let autoStartBreaks = true
-        static let minimumPauseGapSeconds = 20 * 60
     }
 
     static func register() {
@@ -36,7 +34,6 @@ enum AppPreferences {
             Keys.focusDurationSeconds: Defaults.focusDurationSeconds,
             Keys.restDurationSeconds: Defaults.restDurationSeconds,
             Keys.autoStartBreaks: Defaults.autoStartBreaks,
-            Keys.minimumPauseGapSeconds: Defaults.minimumPauseGapSeconds,
         ])
     }
 
@@ -89,13 +86,6 @@ enum AppPreferences {
             return defaults.bool(forKey: Keys.autoStartBreaks)
         }
         set { defaults.set(newValue, forKey: Keys.autoStartBreaks) }
-    }
-
-    // MARK: - Timeline
-
-    static var minimumPauseGapSeconds: Int {
-        get { positiveInt(forKey: Keys.minimumPauseGapSeconds, default: Defaults.minimumPauseGapSeconds) }
-        set { defaults.set(newValue, forKey: Keys.minimumPauseGapSeconds) }
     }
 
     // MARK: - Window

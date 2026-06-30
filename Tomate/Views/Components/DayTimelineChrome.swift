@@ -32,7 +32,6 @@ struct DayTimelineChrome: View {
                     selectedDate: selectedDate,
                     calendar: calendar,
                     focusDurationSeconds: timer.configuration.focusDurationSeconds,
-                    minimumPauseGapSeconds: AppPreferences.minimumPauseGapSeconds,
                     totalWidth: geometry.size.width
                 )
 

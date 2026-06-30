@@ -4,7 +4,7 @@ import XCTest
 final class TimelineDisplayTests: XCTestCase {
     private let t0 = Date(timeIntervalSince1970: 1_700_000_000)
     private let focusDuration: TimeInterval = 25 * 60
-    private let minimumPauseGap: TimeInterval = 20 * 60
+    private let minimumPauseGap = TimerConfiguration.minimumTimelinePauseGap
 
     private func interval(
         kind: TimelineIntervalKind,
@@ -77,11 +77,11 @@ final class TimelineDisplayTests: XCTestCase {
 
     func testQualifyingPauseGapIgnoresShortGap() {
         let focus25m: TimeInterval = 25 * 60
-        let pause15m: TimeInterval = 15 * 60
+        let pause10m: TimeInterval = 10 * 60
 
         let intervals = [
             interval(kind: .focus, start: t0, duration: focus25m),
-            interval(kind: .focus, start: t0.addingTimeInterval(focus25m + pause15m), duration: focus25m),
+            interval(kind: .focus, start: t0.addingTimeInterval(focus25m + pause10m), duration: focus25m),
         ]
 
         let gap = TimelineDisplay.qualifyingPauseGap(

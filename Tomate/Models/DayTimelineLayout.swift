@@ -23,7 +23,6 @@ struct DayTimelineLayout {
         selectedDate: Date,
         calendar: Calendar,
         focusDurationSeconds: Int,
-        minimumPauseGapSeconds: Int,
         totalWidth: CGFloat
     ) -> DayTimelineLayout {
         let displayIntervals = TimelineDisplay.displayIntervals(
@@ -39,7 +38,7 @@ struct DayTimelineLayout {
             TimelineDisplay.qualifyingPauseGap(
                 in: displayIntervals,
                 completeFocusDuration: TimeInterval(focusDurationSeconds),
-                minimumGap: TimeInterval(minimumPauseGapSeconds)
+                minimumGap: TimerConfiguration.minimumTimelinePauseGap
             )
         } ?? nil
 

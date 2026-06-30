@@ -2,8 +2,8 @@ import AppKit
 import SwiftUI
 
 enum AppWindowMetrics {
-    static let defaultSize = CGSize(width: 680, height: 300)
     static let minSize = CGSize(width: 360, height: AppLayoutMetrics.minimumWindowHeight)
+    static let defaultSize = minSize
 }
 
 enum AppWindowController {
@@ -132,10 +132,7 @@ final class WindowAnchorView: NSView {
         if let savedFrame = AppPreferences.loadWindowFrame(minFrameSize: minFrameSize) {
             window.setFrame(savedFrame, display: true)
         } else {
-            window.setContentSize(NSSize(
-                width: AppWindowMetrics.defaultSize.width,
-                height: AppWindowMetrics.defaultSize.height
-            ))
+            window.setContentSize(minContent)
             window.center()
         }
     }
