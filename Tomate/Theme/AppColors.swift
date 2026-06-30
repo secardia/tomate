@@ -12,6 +12,8 @@ enum AppColors {
     /// Primary text — very light gray, not pure white.
     static let textPrimary = Color(white: 0.74)
     static let textSecondary = Color(white: 0.50)
+    /// Week stats — past day labels, lighter than `textPrimary`.
+    static let weekPastDayLabel = Color(white: 0.80)
     static let timelineInactive = Color(red: 0.16, green: 0.16, blue: 0.17)
     /// Timer pause gap on the day timeline.
     static let timelineGap = Color(white: 0.22)

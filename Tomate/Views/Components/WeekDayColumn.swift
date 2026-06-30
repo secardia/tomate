@@ -7,6 +7,16 @@ struct WeekDayColumn: View {
     let isToday: Bool
     let isPastOrToday: Bool
 
+    private var dayLabelColor: Color {
+        if isToday {
+            AppColors.textPrimary
+        } else if isPastOrToday {
+            AppColors.weekPastDayLabel
+        } else {
+            AppColors.textSecondary
+        }
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             Spacer(minLength: 0)
@@ -28,10 +38,10 @@ struct WeekDayColumn: View {
             Spacer(minLength: 0)
 
             Text(dayLabel)
-                .font(.system(size: 12, weight: isToday ? .bold : .regular))
-                .foregroundStyle(isPastOrToday ? AppColors.textPrimary : AppColors.textSecondary)
+                .font(.system(size: 13, weight: isToday ? .bold : .regular))
+                .foregroundStyle(dayLabelColor)
                 .fixedSize(horizontal: true, vertical: false)
-                .frame(minHeight: 14, alignment: .center)
+                .frame(minHeight: 15, alignment: .center)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
